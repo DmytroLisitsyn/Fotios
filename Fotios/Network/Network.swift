@@ -1,9 +1,25 @@
 //
-//  Network.swift
 //  Fotios
 //
-//  Created by Dmytro Lisitsyn on 9/27/19.
-//  Copyright © 2019 Dmytro Lisitsyn. All rights reserved.
+//  Copyright (C) 2019 Dmytro Lisitsyn
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 //
 
 import Foundation
@@ -14,7 +30,7 @@ public final class Network {
     
     public var session: NetworkSession
     
-    public var recoverer: NetworkRequestRecoverable = NetworkRequestRecoverer()
+    public var recoverer: NetworkRequestRecoverable?
     
     public init(environmentFetcher: NetworkEnvironmentFetcher, session: NetworkSession) {
         self.environmentFetcher = environmentFetcher
@@ -25,77 +41,46 @@ public final class Network {
         self.init(environmentFetcher: .init(environment: environment), session: session)
     }
     
-    public func send<T: NetworkRequest>(_ request: T, shouldTryToRecoverFromError: Bool = true, completionHandler: @escaping (TypedResult<T.Response>) -> Void) {
+    @discardableResult
+    public func send<T: NetworkRequest>(_ request: T, shouldTryToRecoverFromError: Bool = true, completionHandler: @escaping (TypedResult<T.NetworkResponse>) -> Void) -> NetworkTask {
         let handleError: (Error) -> Void = { error in
-            self.recoverer.tryToRecover(from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
-                self.send(request, shouldTryToRecoverFromError: false, completionHandler: completionHandler)
-            }, failureHandler: {
+            if let recoverer = self.recoverer {
+                recoverer.tryToRecover(from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
+                    self.send(request, shouldTryToRecoverFromError: false, completionHandler: completionHandler)
+                }, failureHandler: {
+                    completionHandler(.failure(error))
+                })
+            } else {
                 completionHandler(.failure(error))
-            })
+            }
         }
         
         do {
             let urlRequest = try request.networkRequest(in: environmentFetcher.environment)
-            session.send(urlRequest) { response in
+            return session.send(urlRequest) { response in
                 do {
-                    let result: T.Response = try self.entity(from: response)
-                    completionHandler(.success(result))
+                    if let error = response.error {
+                        throw error
+                    }
+                    
+                    let data = response.data ?? Data()
+                    let meta = response.meta as? HTTPURLResponse
+
+                    guard let statusCode = meta?.statusCode, statusCode < 400 else {
+                        let error = try T.NetworkError.init(data, statusCode: meta?.statusCode ?? -1)
+                        throw error
+                    }
+                    
+                    let networkResponse = try T.NetworkResponse.init(data)
+                    completionHandler(.success(networkResponse))
                 } catch let error {
                     handleError(error)
                 }
             }
         } catch let error {
             handleError(error)
-        }
-    }
-
-}
-
-extension Network {
-    
-    private func entity<T>(from data: Data) throws -> T {
-        switch T.self {
-        case is Void.Type:
-            return () as! T
-        case (let type as NetworkResponse.Type):
-            let entity = try type.init(data) as! T
-            return entity
-        default:
-            throw NetworkError.undefinedMapper(context: .errorContext(entity: T.self, file: #file, line: #line))
-        }
-    }
-    
-    private func entity<T>(from response: NetworkSessionResponse) throws -> T {
-        let data = try self.data(from: response)
-        let entity: T = try self.entity(from: data)
-        return entity
-    }
-    
-    private func data(from response: NetworkSessionResponse) throws -> Data {
-        if let error = response.error {
-            if (error as NSError).code == NSURLErrorCancelled {
-                throw NetworkError.cancelled
-            } else {
-                throw error
-            }
-        }
-        
-        guard let data = response.data, let meta = response.meta as? HTTPURLResponse else {
-            throw NetworkError.unexpectedResponse(context: .errorContext(entity: NetworkSessionResponse.self, file: #file, line: #line))
-        }
-        
-        if meta.statusCode < 400 {
-            return data
-        }
-        
-        if let error = try? entity(from: data) as NetworkError {
-            throw error
-        } else if let error = NetworkError(errorCode: meta.statusCode) {
-            throw error
-        } else if let message = String(data: data, encoding: .utf8) {
-            throw NetworkError.unknown(message: message)
-        } else {
-            throw NetworkError.unexpectedResponse(context: .errorContext(entity: NetworkSessionResponse.self, file: #file, line: #line))
+            
+            return MockNetworkTask()
         }
     }
 

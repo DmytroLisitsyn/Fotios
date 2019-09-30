@@ -17,7 +17,6 @@
 		CDB5F7FB233E857700C9C834 /* FotiosDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7FA233E857700C9C834 /* FotiosDemoTests.swift */; };
 		CDB5F803233E865500C9C834 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F802233E865500C9C834 /* Network.swift */; };
 		CDB5F805233E877800C9C834 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F804233E877800C9C834 /* NetworkError.swift */; };
-		CDB5F809233E885800C9C834 /* JSONExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F808233E885800C9C834 /* JSONExtension.swift */; };
 		CDB5F80C233E88B800C9C834 /* ListAndResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80B233E88B800C9C834 /* ListAndResults.swift */; };
 		CDB5F80E233E896C00C9C834 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80D233E896C00C9C834 /* NetworkSession.swift */; };
 		CDB5F810233E89CA00C9C834 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */; };
@@ -78,7 +77,6 @@
 		CDB5F7FC233E857700C9C834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDB5F802233E865500C9C834 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CDB5F804233E877800C9C834 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		CDB5F808233E885800C9C834 /* JSONExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONExtension.swift; sourceTree = "<group>"; };
 		CDB5F80B233E88B800C9C834 /* ListAndResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndResults.swift; sourceTree = "<group>"; };
 		CDB5F80D233E896C00C9C834 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
@@ -169,9 +167,8 @@
 				CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */,
 				CDB5F80D233E896C00C9C834 /* NetworkSession.swift */,
 				CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */,
-				CDB5F804233E877800C9C834 /* NetworkError.swift */,
 				CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */,
-				CDB5F808233E885800C9C834 /* JSONExtension.swift */,
+				CDB5F804233E877800C9C834 /* NetworkError.swift */,
 				CDB5F811233E8D1900C9C834 /* NetworkRequestRecoverable.swift */,
 			);
 			path = Network;
@@ -354,7 +351,6 @@
 			files = (
 				CDB5F812233E8D1900C9C834 /* NetworkRequestRecoverable.swift in Sources */,
 				CDB5F822233E93DD00C9C834 /* NetworkEnvironment.swift in Sources */,
-				CDB5F809233E885800C9C834 /* JSONExtension.swift in Sources */,
 				CDB5F81C233E914400C9C834 /* ObserverContainer.swift in Sources */,
 				CDB5F810233E89CA00C9C834 /* NetworkTask.swift in Sources */,
 				CDB5F81E233E916400C9C834 /* RepeatingOperation.swift in Sources */,
