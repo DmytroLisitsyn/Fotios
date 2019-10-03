@@ -25,7 +25,7 @@
 import Foundation
 import Fotios
 
-enum FotiosError: NetworkError {
+enum FotiosError: NetworkFailable {
     
     case unauthorized
     case notFound

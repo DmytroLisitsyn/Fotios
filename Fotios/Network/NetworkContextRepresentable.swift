@@ -24,13 +24,13 @@
 
 import Foundation
 
-public protocol NetworkEnvironment {
+public protocol NetworkContextRepresentable {
     
     var apiURL: URL { get }
     
 }
 
-extension NetworkEnvironment {
+extension NetworkContextRepresentable {
     
     public func apiURL(path: String, query: [String: String?] = [:]) -> URL {
         var components = URLComponents(url: apiURL, resolvingAgainstBaseURL: true)!
@@ -50,25 +50,25 @@ extension NetworkEnvironment {
     
 }
 
-public protocol NetworkEnvironmentObserver: AnyObject {
-    func didUpdateEnvironment(_ networkEnvironmentFetcher: NetworkEnvironmentFetcher)
+public protocol NetworkContextObserver: AnyObject {
+    func didUpdateContext(_ networkContextFetcher: NetworkContextFetcher)
 }
 
-public final class NetworkEnvironmentFetcher: ObserverContainable {
+public final class NetworkContextFetcher: ObserverContainable {
     
-    public var environment: NetworkEnvironment {
-        didSet { didSetEnvironment(environment) }
+    public var context: NetworkContextRepresentable {
+        didSet { didSetContext(context) }
     }
     
-    public var observers = ObserverContainer<NetworkEnvironmentObserver>()
+    public var observers = ObserverContainer<NetworkContextObserver>()
     
-    public init(environment: NetworkEnvironment) {
-        self.environment = environment
+    public init(context: NetworkContextRepresentable) {
+        self.context = context
     }
     
-    private func didSetEnvironment(_ environment: NetworkEnvironment) {
+    private func didSetContext(_ context: NetworkContextRepresentable) {
         observers.enumerateObservers { observer in
-            observer.didUpdateEnvironment(self)
+            observer.didUpdateContext(self)
         }
     }
     
