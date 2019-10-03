@@ -43,44 +43,36 @@ public final class Network {
     
     @discardableResult
     public func send<T: NetworkRequest>(_ request: T, shouldTryToRecoverFromError: Bool = true, completionHandler: @escaping (TypedResult<T.NetworkResponse>) -> Void) -> NetworkTask {
-        let handleError: (Error) -> Void = { error in
-            if let recoverer = self.recoverer {
+        let urlRequest = request.networkRequest(in: environmentFetcher.environment)
+        
+        return session.send(urlRequest) { response in
+            do {
+                if let error = response.error {
+                    throw error
+                }
+                
+                let data = response.data ?? Data()
+                let meta = response.meta as? HTTPURLResponse
+                
+                guard let statusCode = meta?.statusCode, statusCode < 400 else {
+                    let error = try T.NetworkError.init(data, statusCode: meta?.statusCode ?? -1)
+                    throw error
+                }
+                
+                let networkResponse = try T.NetworkResponse.init(data)
+                completionHandler(.success(networkResponse))
+            } catch let error {
+                guard let recoverer = self.recoverer else {
+                    completionHandler(.failure(error))
+                    return
+                }
+                
                 recoverer.tryToRecover(from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
                     self.send(request, shouldTryToRecoverFromError: false, completionHandler: completionHandler)
                 }, failureHandler: {
                     completionHandler(.failure(error))
                 })
-            } else {
-                completionHandler(.failure(error))
             }
-        }
-        
-        do {
-            let urlRequest = try request.networkRequest(in: environmentFetcher.environment)
-            return session.send(urlRequest) { response in
-                do {
-                    if let error = response.error {
-                        throw error
-                    }
-                    
-                    let data = response.data ?? Data()
-                    let meta = response.meta as? HTTPURLResponse
-
-                    guard let statusCode = meta?.statusCode, statusCode < 400 else {
-                        let error = try T.NetworkError.init(data, statusCode: meta?.statusCode ?? -1)
-                        throw error
-                    }
-                    
-                    let networkResponse = try T.NetworkResponse.init(data)
-                    completionHandler(.success(networkResponse))
-                } catch let error {
-                    handleError(error)
-                }
-            }
-        } catch let error {
-            handleError(error)
-            
-            return MockNetworkTask()
         }
     }
 

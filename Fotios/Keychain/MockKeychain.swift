@@ -24,62 +24,32 @@
 
 import Foundation
 
-// MARK: Closure
-
-public typealias Closure<T> = (T) -> Void
-
-// MARK: Results
-
-public typealias PlainResult = Result<Void, Error>
-
-public typealias TypedResult<T> = Result<T, Error>
-
-// MARK: List
-
-public protocol AnyList {
+public final class MockKeychain: Keychain {
     
-    static var entityType: Any.Type { get }
+    public var values: [KeychainItem: Data]
     
-    var count: Int { get }
-
-    var metadata: ListMetadata { get set }
-
-}
-
-public struct List<T>: AnyList {
-
-    public static var entityType: Any.Type {
-        return T.self
+    public init(account: String, values: [KeychainItem: Data] = [:]) {
+        self.values = values
     }
-
-    public var entities: [T] = []
-    
-    public var count: Int {
-        return entities.count
-    }
-
-    public var metadata: ListMetadata = .init()
-
-    public init() {
         
+    public convenience init(account: String) {
+        self.init(account: account, values: [:])
+    }
+    
+    public func save(_ value: Data, as item: KeychainItem) throws {
+        values[item] = value
+    }
+    
+    public func fetch(_ item: KeychainItem) throws -> Data? {
+        if let value = values[item] {
+            return value
+        } else {
+            return nil
+        }
+    }
+    
+    public func delete(_ item: KeychainItem) throws {
+        values[item] = nil
     }
     
 }
-
-// MARK: ListMetadata
-
-public struct ListMetadata {
-     
-     public var page = 0
-     public var countPerPage = 0
-     public var count = 0
-     
-     public var hasMore: Bool {
-         return count > (page + 1) * countPerPage
-     }
-     
-     public init() {
-         
-     }
-     
- }

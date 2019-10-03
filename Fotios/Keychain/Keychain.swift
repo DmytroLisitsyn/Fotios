@@ -23,25 +23,45 @@
 //
 
 import Foundation
-import CoreData
 
-public struct Fetch<T> {
+// MARK: Keychain
+
+public protocol Keychain {
     
-    public typealias Response = T
+    init(account: String)
     
-    public init() {
-        
-    }
+    func save(_ value: Data, as item: KeychainItem) throws
+    func fetch(_ item: KeychainItem) throws -> Data?
+    func delete(_ item: KeychainItem) throws
     
 }
 
-extension Fetch: AnyStorageRequest, StorageRequest where T: Fotios.Storable {
+// MARK: KeychainItem
+
+public struct KeychainItem: Hashable {
     
-    public typealias Storable = T
+    public var tag: String
     
-    public func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
-        let fetchRequest = T.StoredObject.fetchRequest()
-        return fetchRequest
+    public var accessModifier = kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+    
+    public init(tag: String) {
+        self.tag = tag
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(tag)
+    }
+
+}
+
+// MARK: KeychainError
+
+public struct KeychainError: Error {
+    
+    public var status: OSStatus
+    
+    public init(status: OSStatus) {
+        self.status = status
     }
     
 }
