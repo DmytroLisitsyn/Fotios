@@ -11,6 +11,7 @@
 		CD1120A823450AC50096C680 /* FotiosError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A723450AC50096C680 /* FotiosError.swift */; };
 		CD1120AC234514810096C680 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A92345124E0096C680 /* Model.xcdatamodeld */; };
 		CD1120AE23453E160096C680 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120AD23453E160096C680 /* StorageTests.swift */; };
+		CD5C10FA234659EA0014485D /* NetworkFailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5C10F9234659EA0014485D /* NetworkFailable.swift */; };
 		CD9D0B5A23463E0A00AE2B43 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D0B5923463E0A00AE2B43 /* Keychain.swift */; };
 		CDB5F7CE233E83FE00C9C834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */; };
 		CDB5F7D2233E83FE00C9C834 /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7D1233E83FE00C9C834 /* InitialVC.swift */; };
@@ -20,7 +21,6 @@
 		CDB5F7ED233E842C00C9C834 /* Fotios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; };
 		CDB5F7EE233E842C00C9C834 /* Fotios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDB5F803233E865500C9C834 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F802233E865500C9C834 /* Network.swift */; };
-		CDB5F805233E877800C9C834 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F804233E877800C9C834 /* NetworkError.swift */; };
 		CDB5F80C233E88B800C9C834 /* ListAndResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80B233E88B800C9C834 /* ListAndResults.swift */; };
 		CDB5F80E233E896C00C9C834 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80D233E896C00C9C834 /* NetworkSession.swift */; };
 		CDB5F810233E89CA00C9C834 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */; };
@@ -31,7 +31,7 @@
 		CDB5F81C233E914400C9C834 /* ObserverContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F81B233E914400C9C834 /* ObserverContainer.swift */; };
 		CDB5F81E233E916400C9C834 /* RepeatingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F81D233E916400C9C834 /* RepeatingOperation.swift */; };
 		CDB5F820233E931200C9C834 /* ErrorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F81F233E931200C9C834 /* ErrorContext.swift */; };
-		CDB5F822233E93DD00C9C834 /* NetworkEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */; };
+		CDB5F822233E93DD00C9C834 /* NetworkContextRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F821233E93DD00C9C834 /* NetworkContextRepresentable.swift */; };
 		CDB5F824233E9B6E00C9C834 /* NetworkRequestAndResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */; };
 		CDB7E5F023464104009BB585 /* AppleKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB7E5EF23464104009BB585 /* AppleKeychain.swift */; };
 		CDB7E5F22346410E009BB585 /* MockKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB7E5F12346410E009BB585 /* MockKeychain.swift */; };
@@ -76,6 +76,7 @@
 		CD1120A723450AC50096C680 /* FotiosError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotiosError.swift; sourceTree = "<group>"; };
 		CD1120AA2345124E0096C680 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CD1120AD23453E160096C680 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		CD5C10F9234659EA0014485D /* NetworkFailable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkFailable.swift; sourceTree = "<group>"; };
 		CD9D0B5923463E0A00AE2B43 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		CDB5F7CA233E83FE00C9C834 /* FotiosDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotiosDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -89,7 +90,6 @@
 		CDB5F7F8233E857700C9C834 /* FotiosDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotiosDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB5F7FC233E857700C9C834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDB5F802233E865500C9C834 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		CDB5F804233E877800C9C834 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		CDB5F80B233E88B800C9C834 /* ListAndResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndResults.swift; sourceTree = "<group>"; };
 		CDB5F80D233E896C00C9C834 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 		CDB5F81B233E914400C9C834 /* ObserverContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverContainer.swift; sourceTree = "<group>"; };
 		CDB5F81D233E916400C9C834 /* RepeatingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingOperation.swift; sourceTree = "<group>"; };
 		CDB5F81F233E931200C9C834 /* ErrorContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorContext.swift; sourceTree = "<group>"; };
-		CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEnvironment.swift; sourceTree = "<group>"; };
+		CDB5F821233E93DD00C9C834 /* NetworkContextRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkContextRepresentable.swift; sourceTree = "<group>"; };
 		CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestAndResponse.swift; sourceTree = "<group>"; };
 		CDB7E5EF23464104009BB585 /* AppleKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleKeychain.swift; sourceTree = "<group>"; };
 		CDB7E5F12346410E009BB585 /* MockKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeychain.swift; sourceTree = "<group>"; };
@@ -198,10 +198,10 @@
 			children = (
 				CDB5F802233E865500C9C834 /* Network.swift */,
 				CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */,
-				CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */,
+				CDB5F821233E93DD00C9C834 /* NetworkContextRepresentable.swift */,
 				CDB5F80D233E896C00C9C834 /* NetworkSession.swift */,
 				CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */,
-				CDB5F804233E877800C9C834 /* NetworkError.swift */,
+				CD5C10F9234659EA0014485D /* NetworkFailable.swift */,
 				CDB5F811233E8D1900C9C834 /* NetworkRequestRecoverable.swift */,
 			);
 			path = Network;
@@ -405,16 +405,16 @@
 			files = (
 				CD9D0B5A23463E0A00AE2B43 /* Keychain.swift in Sources */,
 				CDB5F812233E8D1900C9C834 /* NetworkRequestRecoverable.swift in Sources */,
-				CDB5F822233E93DD00C9C834 /* NetworkEnvironment.swift in Sources */,
+				CDB5F822233E93DD00C9C834 /* NetworkContextRepresentable.swift in Sources */,
 				CDB7E5F22346410E009BB585 /* MockKeychain.swift in Sources */,
 				CDB5F81C233E914400C9C834 /* ObserverContainer.swift in Sources */,
 				CDB5F810233E89CA00C9C834 /* NetworkTask.swift in Sources */,
+				CD5C10FA234659EA0014485D /* NetworkFailable.swift in Sources */,
 				CDB5F81E233E916400C9C834 /* RepeatingOperation.swift in Sources */,
 				CDB5F803233E865500C9C834 /* Network.swift in Sources */,
 				CDB5F81A233E911000C9C834 /* DispatchQueueExtension.swift in Sources */,
 				CDB5F816233E8DBF00C9C834 /* OptionalExtension.swift in Sources */,
 				CDB5F80E233E896C00C9C834 /* NetworkSession.swift in Sources */,
-				CDB5F805233E877800C9C834 /* NetworkError.swift in Sources */,
 				CDDC06A023421DAF00715827 /* StorageRequest.swift in Sources */,
 				CDB5F820233E931200C9C834 /* ErrorContext.swift in Sources */,
 				CDB5F80C233E88B800C9C834 /* ListAndResults.swift in Sources */,

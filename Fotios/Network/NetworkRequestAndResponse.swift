@@ -28,61 +28,61 @@ import Foundation
 
 public protocol AnyNetworkRequest {
     
-    func networkRequest(in environment: NetworkEnvironment) -> URLRequest
+    func networkRequest(in context: NetworkContextRepresentable) -> URLRequest
     
-    func networkURL(in environment: NetworkEnvironment) -> URL
-    func networkURLPath(in environment: NetworkEnvironment) -> String
-    func networkURLQuery(in environment: NetworkEnvironment) -> [String: String?]
+    func networkURL(in context: NetworkContextRepresentable) -> URL
+    func networkURLPath(in context: NetworkContextRepresentable) -> String
+    func networkURLQuery(in context: NetworkContextRepresentable) -> [String: String?]
     
-    func networkMethod(in environment: NetworkEnvironment) -> String
-    func networkHeaderFields(in environment: NetworkEnvironment) -> [String: String]
-    func networkBody(in environment: NetworkEnvironment) -> Data?
+    func networkMethod(in context: NetworkContextRepresentable) -> String
+    func networkHeaderFields(in context: NetworkContextRepresentable) -> [String: String]
+    func networkBody(in context: NetworkContextRepresentable) -> Data?
 
 }
 
 public protocol NetworkRequest: AnyNetworkRequest {
     
     associatedtype NetworkResponse: Fotios.NetworkResponse
-    associatedtype NetworkError: Fotios.NetworkError
+    associatedtype NetworkFailable: Fotios.NetworkFailable
     
 }
 
 extension NetworkRequest {
     
-    public func networkRequest(in environment: NetworkEnvironment) -> URLRequest {
-        let url = networkURL(in: environment)
+    public func networkRequest(in context: NetworkContextRepresentable) -> URLRequest {
+        let url = networkURL(in: context)
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = networkMethod(in: environment)
-        urlRequest.allHTTPHeaderFields = networkHeaderFields(in: environment)
-        urlRequest.httpBody = networkBody(in: environment)
+        urlRequest.httpMethod = networkMethod(in: context)
+        urlRequest.allHTTPHeaderFields = networkHeaderFields(in: context)
+        urlRequest.httpBody = networkBody(in: context)
         
         return urlRequest
     }
     
-    public func networkURL(in environment: NetworkEnvironment) -> URL {
-        let path = networkURLPath(in: environment)
-        let query = networkURLQuery(in: environment)
-        return environment.apiURL(path: path, query: query)
+    public func networkURL(in context: NetworkContextRepresentable) -> URL {
+        let path = networkURLPath(in: context)
+        let query = networkURLQuery(in: context)
+        return context.apiURL(path: path, query: query)
     }
 
-    public func networkURLPath(in environment: NetworkEnvironment) -> String {
+    public func networkURLPath(in context: NetworkContextRepresentable) -> String {
         return ""
     }
     
-    public func networkURLQuery(in environment: NetworkEnvironment) -> [String: String?] {
+    public func networkURLQuery(in context: NetworkContextRepresentable) -> [String: String?] {
         return [:]
     }
     
-    public func networkMethod(in environment: NetworkEnvironment) -> String {
+    public func networkMethod(in context: NetworkContextRepresentable) -> String {
         return "GET"
     }
     
-    public func networkHeaderFields(in environment: NetworkEnvironment) -> [String: String] {
+    public func networkHeaderFields(in context: NetworkContextRepresentable) -> [String: String] {
         return [:]
     }
     
-    public func networkBody(in environment: NetworkEnvironment) -> Data? {
+    public func networkBody(in context: NetworkContextRepresentable) -> Data? {
         return nil
     }
 

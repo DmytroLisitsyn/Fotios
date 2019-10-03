@@ -24,7 +24,7 @@
 
 import Foundation
 
-public protocol NetworkError: Error {
+public protocol NetworkFailable: Error {
 
     init(_ networkBody: Data, statusCode: Int) throws
 

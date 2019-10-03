@@ -26,24 +26,24 @@ import Foundation
 
 public final class Network {
 
-    public let environmentFetcher: NetworkEnvironmentFetcher
+    public let contextFetcher: NetworkContextFetcher
     
     public var session: NetworkSession
     
     public var recoverer: NetworkRequestRecoverable?
     
-    public init(environmentFetcher: NetworkEnvironmentFetcher, session: NetworkSession) {
-        self.environmentFetcher = environmentFetcher
+    public init(contextFetcher: NetworkContextFetcher, session: NetworkSession) {
+        self.contextFetcher = contextFetcher
         self.session = session
     }
     
-    public convenience init(environment: NetworkEnvironment, session: NetworkSession) {
-        self.init(environmentFetcher: .init(environment: environment), session: session)
+    public convenience init(context: NetworkContextRepresentable, session: NetworkSession) {
+        self.init(contextFetcher: .init(context: context), session: session)
     }
     
     @discardableResult
     public func send<T: NetworkRequest>(_ request: T, shouldTryToRecoverFromError: Bool = true, completionHandler: @escaping (TypedResult<T.NetworkResponse>) -> Void) -> NetworkTask {
-        let urlRequest = request.networkRequest(in: environmentFetcher.environment)
+        let urlRequest = request.networkRequest(in: contextFetcher.context)
         
         return session.send(urlRequest) { response in
             do {
@@ -55,7 +55,7 @@ public final class Network {
                 let meta = response.meta as? HTTPURLResponse
                 
                 guard let statusCode = meta?.statusCode, statusCode < 400 else {
-                    let error = try T.NetworkError.init(data, statusCode: meta?.statusCode ?? -1)
+                    let error = try T.NetworkFailable.init(data, statusCode: meta?.statusCode ?? -1)
                     throw error
                 }
                 

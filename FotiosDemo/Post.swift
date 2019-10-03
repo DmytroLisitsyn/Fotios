@@ -44,16 +44,12 @@ struct Post {
 extension Post: NetworkRequest, NetworkResponse {
     
     typealias NetworkResponse = Post
-    typealias NetworkError = FotiosError
+    typealias NetworkFailable = FotiosError
     
     init(_ networkBody: Data) throws {
         self.init(id: "")
     }
-    
-    func networkBody(in environment: NetworkEnvironment) throws -> Data? {
-        return nil
-    }
-        
+            
 }
 
 extension Post: Storable, StorageRequest {
