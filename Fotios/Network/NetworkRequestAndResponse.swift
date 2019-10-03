@@ -22,7 +22,6 @@
 //  SOFTWARE.
 //
 
-
 import Foundation
 
 // MARK: NetworkRequest
@@ -56,7 +55,7 @@ extension NetworkRequest {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = networkMethod(in: environment)
         urlRequest.allHTTPHeaderFields = try networkHeaderFields(in: environment)
-        urlRequest.httpBody = try networkBody()
+        urlRequest.httpBody = try networkBody(in: environment)
         
         return urlRequest
     }
@@ -83,7 +82,7 @@ extension NetworkRequest {
         return [:]
     }
     
-    public func networkBody() throws -> Data? {
+    public func networkBody(in environment: NetworkEnvironment) throws -> Data? {
         return nil
     }
 

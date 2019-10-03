@@ -23,27 +23,51 @@
 //
 
 import XCTest
+import Fotios
+@testable import FotiosDemo
 
-class FotiosDemoTests: XCTestCase {
+final class StorageTests: XCTestCase {
 
+    var storage: Storage!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let model = Storage.model(name: "Model")
+        storage = Storage(model: model, shouldUseInMemoryStorage: false)
     }
+    
+    func testPostSavingAndFetchingByID() {
+        do {
+            try storage.save([Post.post1, Post.post2])
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+            let entity = try storage.fetchFirst(Post.post1)
+            
+            XCTAssertEqual(Post.post1.id, entity?.id)
+            XCTAssertEqual(Post.post1.userID, entity?.userID)
+            XCTAssertEqual(Post.post1.title, entity?.title)
+            XCTAssertEqual(Post.post1.body, entity?.body)
+        } catch let error {
+            XCTFail(error.localizedDescription)
         }
     }
+    
+}
 
+extension Post {
+        
+    static var post1: Post {
+        var entity = Post(id: "1")
+        entity.userID = "1"
+        entity.title = "Title 1"
+        entity.body = "Body 1"
+        return entity
+    }
+    
+    static var post2: Post {
+        var entity = Post(id: "2")
+        entity.userID = "2"
+        entity.title = "Title 2"
+        entity.body = "Body 2"
+        return entity
+    }
+    
 }

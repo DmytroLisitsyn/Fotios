@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD1120A62345098F0096C680 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A52345098F0096C680 /* Post.swift */; };
+		CD1120A823450AC50096C680 /* FotiosError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A723450AC50096C680 /* FotiosError.swift */; };
+		CD1120AC234514810096C680 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A92345124E0096C680 /* Model.xcdatamodeld */; };
+		CD1120AE23453E160096C680 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120AD23453E160096C680 /* StorageTests.swift */; };
+		CD53B4C9234618140099B6ED /* Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD53B4C8234618140099B6ED /* Fetch.swift */; };
 		CDB5F7CE233E83FE00C9C834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */; };
 		CDB5F7D2233E83FE00C9C834 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7D1233E83FE00C9C834 /* ViewController.swift */; };
 		CDB5F7D5233E83FE00C9C834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB5F7D3233E83FE00C9C834 /* Main.storyboard */; };
@@ -14,7 +19,6 @@
 		CDB5F7EA233E842C00C9C834 /* Fotios.h in Headers */ = {isa = PBXBuildFile; fileRef = CDB5F7E8233E842C00C9C834 /* Fotios.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDB5F7ED233E842C00C9C834 /* Fotios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; };
 		CDB5F7EE233E842C00C9C834 /* Fotios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CDB5F7FB233E857700C9C834 /* FotiosDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7FA233E857700C9C834 /* FotiosDemoTests.swift */; };
 		CDB5F803233E865500C9C834 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F802233E865500C9C834 /* Network.swift */; };
 		CDB5F805233E877800C9C834 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F804233E877800C9C834 /* NetworkError.swift */; };
 		CDB5F80C233E88B800C9C834 /* ListAndResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80B233E88B800C9C834 /* ListAndResults.swift */; };
@@ -29,6 +33,8 @@
 		CDB5F820233E931200C9C834 /* ErrorContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F81F233E931200C9C834 /* ErrorContext.swift */; };
 		CDB5F822233E93DD00C9C834 /* NetworkEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */; };
 		CDB5F824233E9B6E00C9C834 /* NetworkRequestAndResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */; };
+		CDDC069F23421DAF00715827 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDC069D23421DAF00715827 /* Storage.swift */; };
+		CDDC06A023421DAF00715827 /* StorageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDC069E23421DAF00715827 /* StorageRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +69,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CD1120A52345098F0096C680 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		CD1120A723450AC50096C680 /* FotiosError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotiosError.swift; sourceTree = "<group>"; };
+		CD1120AA2345124E0096C680 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		CD1120AD23453E160096C680 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		CD53B4C8234618140099B6ED /* Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fetch.swift; sourceTree = "<group>"; };
 		CDB5F7CA233E83FE00C9C834 /* FotiosDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotiosDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB5F7D1233E83FE00C9C834 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +84,6 @@
 		CDB5F7E8233E842C00C9C834 /* Fotios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fotios.h; sourceTree = "<group>"; };
 		CDB5F7E9233E842C00C9C834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDB5F7F8233E857700C9C834 /* FotiosDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotiosDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDB5F7FA233E857700C9C834 /* FotiosDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotiosDemoTests.swift; sourceTree = "<group>"; };
 		CDB5F7FC233E857700C9C834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDB5F802233E865500C9C834 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CDB5F804233E877800C9C834 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
@@ -89,6 +99,8 @@
 		CDB5F81F233E931200C9C834 /* ErrorContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorContext.swift; sourceTree = "<group>"; };
 		CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEnvironment.swift; sourceTree = "<group>"; };
 		CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRequestAndResponse.swift; sourceTree = "<group>"; };
+		CDDC069D23421DAF00715827 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		CDDC069E23421DAF00715827 /* StorageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,8 +152,11 @@
 		CDB5F7CC233E83FE00C9C834 /* FotiosDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CD1120A92345124E0096C680 /* Model.xcdatamodeld */,
+				CD1120A52345098F0096C680 /* Post.swift */,
+				CD1120A723450AC50096C680 /* FotiosError.swift */,
+				CDDC06A123421ED800715827 /* Screens & Routing */,
 				CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */,
-				CDB5F7D1233E83FE00C9C834 /* ViewController.swift */,
 				CDB5F7D3233E83FE00C9C834 /* Main.storyboard */,
 				CDB5F7D6233E83FF00C9C834 /* Assets.xcassets */,
 				CDB5F7DB233E83FF00C9C834 /* Info.plist */,
@@ -153,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				CDB5F80A233E88A400C9C834 /* Core */,
+				CDDC069C23421DAF00715827 /* Storage */,
 				CDB5F7F3233E848A00C9C834 /* Network */,
 				CDB5F7E8233E842C00C9C834 /* Fotios.h */,
 				CDB5F7E9233E842C00C9C834 /* Info.plist */,
@@ -164,10 +180,10 @@
 			isa = PBXGroup;
 			children = (
 				CDB5F802233E865500C9C834 /* Network.swift */,
+				CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */,
 				CDB5F821233E93DD00C9C834 /* NetworkEnvironment.swift */,
 				CDB5F80D233E896C00C9C834 /* NetworkSession.swift */,
 				CDB5F80F233E89CA00C9C834 /* NetworkTask.swift */,
-				CDB5F823233E9B6E00C9C834 /* NetworkRequestAndResponse.swift */,
 				CDB5F804233E877800C9C834 /* NetworkError.swift */,
 				CDB5F811233E8D1900C9C834 /* NetworkRequestRecoverable.swift */,
 			);
@@ -177,7 +193,7 @@
 		CDB5F7F9233E857700C9C834 /* FotiosDemoTests */ = {
 			isa = PBXGroup;
 			children = (
-				CDB5F7FA233E857700C9C834 /* FotiosDemoTests.swift */,
+				CD1120AD23453E160096C680 /* StorageTests.swift */,
 				CDB5F7FC233E857700C9C834 /* Info.plist */,
 			);
 			path = FotiosDemoTests;
@@ -193,8 +209,26 @@
 				CDB5F81B233E914400C9C834 /* ObserverContainer.swift */,
 				CDB5F815233E8DBF00C9C834 /* OptionalExtension.swift */,
 				CDB5F81D233E916400C9C834 /* RepeatingOperation.swift */,
+				CD53B4C8234618140099B6ED /* Fetch.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		CDDC069C23421DAF00715827 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				CDDC069D23421DAF00715827 /* Storage.swift */,
+				CDDC069E23421DAF00715827 /* StorageRequest.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		CDDC06A123421ED800715827 /* Screens & Routing */ = {
+			isa = PBXGroup;
+			children = (
+				CDB5F7D1233E83FE00C9C834 /* ViewController.swift */,
+			);
+			path = "Screens & Routing";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,7 +374,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD1120A62345098F0096C680 /* Post.swift in Sources */,
 				CDB5F7D2233E83FE00C9C834 /* ViewController.swift in Sources */,
+				CD1120AC234514810096C680 /* Model.xcdatamodeld in Sources */,
+				CD1120A823450AC50096C680 /* FotiosError.swift in Sources */,
 				CDB5F7CE233E83FE00C9C834 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,13 +393,16 @@
 				CDB5F81E233E916400C9C834 /* RepeatingOperation.swift in Sources */,
 				CDB5F803233E865500C9C834 /* Network.swift in Sources */,
 				CDB5F81A233E911000C9C834 /* DispatchQueueExtension.swift in Sources */,
+				CD53B4C9234618140099B6ED /* Fetch.swift in Sources */,
 				CDB5F816233E8DBF00C9C834 /* OptionalExtension.swift in Sources */,
 				CDB5F80E233E896C00C9C834 /* NetworkSession.swift in Sources */,
 				CDB5F805233E877800C9C834 /* NetworkError.swift in Sources */,
+				CDDC06A023421DAF00715827 /* StorageRequest.swift in Sources */,
 				CDB5F820233E931200C9C834 /* ErrorContext.swift in Sources */,
 				CDB5F80C233E88B800C9C834 /* ListAndResults.swift in Sources */,
 				CDB5F818233E905400C9C834 /* HashableExtension.swift in Sources */,
 				CDB5F824233E9B6E00C9C834 /* NetworkRequestAndResponse.swift in Sources */,
+				CDDC069F23421DAF00715827 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CDB5F7FB233E857700C9C834 /* FotiosDemoTests.swift in Sources */,
+				CD1120AE23453E160096C680 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -694,6 +734,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CD1120A92345124E0096C680 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CD1120AA2345124E0096C680 /* Model.xcdatamodel */,
+			);
+			currentVersion = CD1120AA2345124E0096C680 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CDB5F7C2233E83FE00C9C834 /* Project object */;
 }
