@@ -28,6 +28,8 @@ public protocol NetworkContextRepresentable {
     
     var apiURL: URL { get }
     
+    func headerFields() -> [String: String]
+    
 }
 
 extension NetworkContextRepresentable {
@@ -46,6 +48,11 @@ extension NetworkContextRepresentable {
         }
         
         return components.url!
+    }
+    
+    public func headerFields() -> [String: String] {
+        let header: [String: String] = [:]
+        return header
     }
     
 }
