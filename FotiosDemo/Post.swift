@@ -79,7 +79,6 @@ extension Post: Storable, StorageRequest {
     func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
         let fetchRequest = StoredObject.fetchRequest() as NSFetchRequest<NSFetchRequestResult>
         fetchRequest.predicate = NSPredicate(format: "id == %@", id)
-        fetchRequest.fetchLimit = 1
         return fetchRequest
     }
     

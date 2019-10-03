@@ -28,15 +28,15 @@ import Foundation
 
 public protocol AnyNetworkRequest {
     
-    func networkRequest(in environment: NetworkEnvironment) throws -> URLRequest
+    func networkRequest(in environment: NetworkEnvironment) -> URLRequest
     
-    func networkURL(in environment: NetworkEnvironment) throws -> URL
-    func networkURLPath(in environment: NetworkEnvironment) throws -> String
-    func networkURLQuery(in environment: NetworkEnvironment) throws -> [String: String?]
+    func networkURL(in environment: NetworkEnvironment) -> URL
+    func networkURLPath(in environment: NetworkEnvironment) -> String
+    func networkURLQuery(in environment: NetworkEnvironment) -> [String: String?]
     
     func networkMethod(in environment: NetworkEnvironment) -> String
-    func networkHeaderFields(in environment: NetworkEnvironment) throws -> [String: String]
-    func networkBody(in environment: NetworkEnvironment) throws -> Data?
+    func networkHeaderFields(in environment: NetworkEnvironment) -> [String: String]
+    func networkBody(in environment: NetworkEnvironment) -> Data?
 
 }
 
@@ -49,28 +49,28 @@ public protocol NetworkRequest: AnyNetworkRequest {
 
 extension NetworkRequest {
     
-    public func networkRequest(in environment: NetworkEnvironment) throws -> URLRequest {
-        let url = try networkURL(in: environment)
+    public func networkRequest(in environment: NetworkEnvironment) -> URLRequest {
+        let url = networkURL(in: environment)
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = networkMethod(in: environment)
-        urlRequest.allHTTPHeaderFields = try networkHeaderFields(in: environment)
-        urlRequest.httpBody = try networkBody(in: environment)
+        urlRequest.allHTTPHeaderFields = networkHeaderFields(in: environment)
+        urlRequest.httpBody = networkBody(in: environment)
         
         return urlRequest
     }
     
-    public func networkURL(in environment: NetworkEnvironment) throws -> URL {
-        let path = try networkURLPath(in: environment)
-        let query = try networkURLQuery(in: environment)
+    public func networkURL(in environment: NetworkEnvironment) -> URL {
+        let path = networkURLPath(in: environment)
+        let query = networkURLQuery(in: environment)
         return environment.apiURL(path: path, query: query)
     }
 
-    public func networkURLPath(in environment: NetworkEnvironment) throws -> String {
+    public func networkURLPath(in environment: NetworkEnvironment) -> String {
         return ""
     }
     
-    public func networkURLQuery(in environment: NetworkEnvironment) throws -> [String: String?] {
+    public func networkURLQuery(in environment: NetworkEnvironment) -> [String: String?] {
         return [:]
     }
     
@@ -78,11 +78,11 @@ extension NetworkRequest {
         return "GET"
     }
     
-    public func networkHeaderFields(in environment: NetworkEnvironment) throws -> [String: String] {
+    public func networkHeaderFields(in environment: NetworkEnvironment) -> [String: String] {
         return [:]
     }
     
-    public func networkBody(in environment: NetworkEnvironment) throws -> Data? {
+    public func networkBody(in environment: NetworkEnvironment) -> Data? {
         return nil
     }
 
