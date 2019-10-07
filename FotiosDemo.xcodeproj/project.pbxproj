@@ -39,6 +39,7 @@
 		CDB7E5F42346469D009BB585 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB7E5F32346469D009BB585 /* ArrayExtension.swift */; };
 		CDDC069F23421DAF00715827 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDC069D23421DAF00715827 /* Storage.swift */; };
 		CDDC06A023421DAF00715827 /* StorageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDC069E23421DAF00715827 /* StorageRequest.swift */; };
+		CDEFEDBB234B69B900957B81 /* RangeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDEFEDBA234B69B900957B81 /* RangeExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		CDB7E5F32346469D009BB585 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		CDDC069D23421DAF00715827 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		CDDC069E23421DAF00715827 /* StorageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageRequest.swift; sourceTree = "<group>"; };
+		CDEFEDBA234B69B900957B81 /* RangeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 				CDB5F80B233E88B800C9C834 /* ListAndResults.swift */,
 				CDB5F81B233E914400C9C834 /* ObserverContainer.swift */,
 				CDB5F815233E8DBF00C9C834 /* OptionalExtension.swift */,
+				CDEFEDBA234B69B900957B81 /* RangeExtension.swift */,
 				CDB5F81D233E916400C9C834 /* RepeatingOperation.swift */,
 			);
 			path = Core;
@@ -427,6 +430,7 @@
 				CDB5F824233E9B6E00C9C834 /* NetworkRequestAndResponse.swift in Sources */,
 				CDB7E5F023464104009BB585 /* AppleKeychain.swift in Sources */,
 				CDDC069F23421DAF00715827 /* Storage.swift in Sources */,
+				CDEFEDBB234B69B900957B81 /* RangeExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
