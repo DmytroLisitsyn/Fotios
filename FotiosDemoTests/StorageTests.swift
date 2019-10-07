@@ -50,6 +50,25 @@ final class StorageTests: XCTestCase {
         }
     }
     
+    func testPostSavingAndFetchingAndDeletingByID() {
+        do {
+            try storage.save([Post.post1, Post.post2])
+            
+            let entity = try storage.fetchFirst(Post.post1)
+            
+            XCTAssert(entity != nil)
+            
+            try storage.delete(Post.post1)
+            
+            let deletedEntity = try storage.fetchFirst(Post.post1)
+
+            XCTAssert(deletedEntity == nil)
+            
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
 }
 
 extension Post {
