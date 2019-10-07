@@ -102,8 +102,8 @@ public final class Storage {
 
 extension Storage {
     
-    public static func model(name: String, bundle: Bundle = .main) -> NSManagedObjectModel {
-        let modelURL = bundle.url(forResource: name, withExtension: "momd")!
+    public static func dataModel(named name: String, in bundle: Bundle = .main) -> NSManagedObjectModel {
+        let modelURL = bundle.url(forResource: name, withExtension: nil)!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         return model
     }
