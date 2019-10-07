@@ -88,9 +88,13 @@ public final class Storage {
     }
 
     public func delete<T: StorageRequest>(_ request: T) throws {
-        try performAndWait { context in            
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: request.fetchRequest())
-            try persistentContainer.persistentStoreCoordinator.execute(deleteRequest, with: context)
+        try performAndWait { context in
+            let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
+            storedObjects.forEach(context.delete)
+            
+            if context.hasChanges {
+                try context.save()
+            }
         }
     }
 

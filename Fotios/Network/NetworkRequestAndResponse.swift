@@ -26,7 +26,10 @@ import Foundation
 
 // MARK: NetworkRequest
 
-public protocol AnyNetworkRequest {
+public protocol NetworkRequest {
+    
+    associatedtype NetworkResponse: Fotios.NetworkResponse
+    associatedtype NetworkFailable: Fotios.NetworkFailable
     
     func networkRequest(in context: NetworkContextRepresentable) -> URLRequest
     
@@ -37,13 +40,6 @@ public protocol AnyNetworkRequest {
     func networkMethod(in context: NetworkContextRepresentable) -> String
     func networkHeaderFields(in context: NetworkContextRepresentable) -> [String: String]
     func networkBody(in context: NetworkContextRepresentable) -> Data?
-
-}
-
-public protocol NetworkRequest: AnyNetworkRequest {
-    
-    associatedtype NetworkResponse: Fotios.NetworkResponse
-    associatedtype NetworkFailable: Fotios.NetworkFailable
     
 }
 
