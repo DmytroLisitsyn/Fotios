@@ -28,8 +28,8 @@ import Foundation
 
 public protocol NetworkRequest {
     
-    associatedtype NetworkResponse: Fotios.NetworkResponse
-    associatedtype NetworkFailable: Fotios.NetworkFailable
+    associatedtype NetworkSuccess: Fotios.NetworkSuccess
+    associatedtype NetworkFailure: Fotios.NetworkFailure
     
     func networkRequest(in context: NetworkContextRepresentable) -> URLRequest
     
@@ -84,9 +84,9 @@ extension NetworkRequest {
 
 }
 
-// MARK: NetworkResponse
+// MARK: NetworkSuccess
 
-public protocol NetworkResponse {
+public protocol NetworkSuccess {
 
     init(_ networkBody: Data) throws
 
