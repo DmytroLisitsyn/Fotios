@@ -32,10 +32,12 @@ public struct EmptyNetworkResponse {
     
 }
 
-extension EmptyNetworkResponse: NetworkResponse {
+extension EmptyNetworkResponse: NetworkSuccess {
     
     public init(_ networkBody: Data) throws {
-        self.init()
+        self.init()        
     }
     
 }
+
+

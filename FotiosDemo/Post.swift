@@ -41,10 +41,10 @@ struct Post {
     
 }
 
-extension Post: NetworkRequest, NetworkResponse {
+extension Post: NetworkRequest, NetworkSuccess {
     
-    typealias NetworkResponse = Post
-    typealias NetworkFailable = FotiosError
+    typealias NetworkSuccess = Post
+    typealias NetworkFailure = FotiosError
     
     init(_ networkBody: Data) throws {
         self.init(id: "")

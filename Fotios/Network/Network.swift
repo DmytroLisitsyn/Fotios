@@ -42,7 +42,7 @@ public final class Network {
     }
     
     @discardableResult
-    public func send<T: NetworkRequest>(_ request: T, shouldTryToRecoverFromError: Bool = true, completionHandler: @escaping (TypedResult<T.NetworkResponse>) -> Void) -> NetworkTask {
+    public func send<T: NetworkRequest>(_ request: T, shouldTryToRecoverFromError: Bool = true, completionHandler: @escaping (TypedResult<T.NetworkSuccess>) -> Void) -> NetworkTask {
         let urlRequest = request.networkRequest(in: contextFetcher.context)
         
         return session.send(urlRequest) { response in
@@ -55,11 +55,11 @@ public final class Network {
                 let meta = response.meta as? HTTPURLResponse
                 
                 guard let statusCode = meta?.statusCode, statusCode < 400 else {
-                    let error = try T.NetworkFailable.init(data, statusCode: meta?.statusCode ?? -1)
+                    let error = try T.NetworkFailure.init(data, statusCode: meta?.statusCode ?? -1)
                     throw error
                 }
                 
-                let networkResponse = try T.NetworkResponse.init(data)
+                let networkResponse = try T.NetworkSuccess.init(data)
                 completionHandler(.success(networkResponse))
             } catch let error {
                 guard let recoverer = self.recoverer else {
