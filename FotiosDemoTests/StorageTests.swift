@@ -32,7 +32,11 @@ final class StorageTests: XCTestCase {
     
     override func setUp() {
         let model = Storage.dataModel(named: "Model.momd")
-        storage = Storage(model: model, shouldUseInMemoryStorage: false)
+        storage = Storage(model: model, shouldUseInMemoryStorage: true)
+    }
+    
+    override func tearDown() {
+        try? storage.deleteAll()
     }
     
     func testPostSavingAndFetchingByID() {
@@ -64,6 +68,29 @@ final class StorageTests: XCTestCase {
 
             XCTAssert(deletedEntity == nil)
             
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
+    }
+    
+    func testPostSavingAndFetchingAndDeletingAll() {
+        do {
+            try storage.save([Post.post1, Post.post2])
+            
+            let entity1 = try storage.fetchFirst(Post.post1)
+            let entity2 = try storage.fetchFirst(Post.post2)
+
+            XCTAssert(entity1 != nil)
+            XCTAssert(entity2 != nil)
+
+            try storage.deleteAll()
+            
+            let deletedEntity1 = try storage.fetchFirst(Post.post1)
+            let deletedEntity2 = try storage.fetchFirst(Post.post2)
+
+            XCTAssert(deletedEntity1 == nil)
+            XCTAssert(deletedEntity2 == nil)
+
         } catch let error {
             XCTFail(error.localizedDescription)
         }
