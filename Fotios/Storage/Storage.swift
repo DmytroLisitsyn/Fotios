@@ -27,23 +27,21 @@ import CoreData
 
 public final class Storage {
     
-    public let account: String?
-    
+    private let account: String
+    private let model: NSManagedObjectModel
     private let persistentContainer: NSPersistentContainer
 
-    public init(account: String = "Storage", model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
+    public init(account: String = Storage.defaultAccount, model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
         self.account = account
+        self.model = model
         
         persistentContainer = NSPersistentContainer(name: account, managedObjectModel: model)
         
-        if shouldUseInMemoryStorage {
-            let description = NSPersistentStoreDescription()
-            description.type = NSInMemoryStoreType
-            description.shouldAddStoreAsynchronously = false
-            
-            persistentContainer.persistentStoreDescriptions = [description]
-        }
-        
+        let storeDescription = NSPersistentStoreDescription()
+        storeDescription.shouldAddStoreAsynchronously = false
+        storeDescription.type = !shouldUseInMemoryStorage ? NSSQLiteStoreType : NSInMemoryStoreType
+        persistentContainer.persistentStoreDescriptions = [storeDescription]
+
         persistentContainer.loadPersistentStores(completionHandler: persistentStoresLoadingHandler)
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
     }
@@ -97,10 +95,30 @@ public final class Storage {
             }
         }
     }
+    
+    public func deleteAll() throws {
+        try performAndWait { context in
+            for entityDescription in model.entities {
+                guard let entityName = entityDescription.name else { continue }
+                
+                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+                let storedObjects = try context.fetch(fetchRequest) as! [NSManagedObject]
+                storedObjects.forEach(context.delete)
+            }
+            
+            if context.hasChanges {
+                try context.save()
+            }
+        }        
+    }
 
 }
 
 extension Storage {
+    
+    public static var defaultAccount: String {
+        return "Storage"
+    }
     
     public static func dataModel(named name: String, in bundle: Bundle = .main) -> NSManagedObjectModel {
         let modelURL = bundle.url(forResource: name, withExtension: nil)!
