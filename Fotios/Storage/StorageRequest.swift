@@ -45,7 +45,7 @@ public protocol Storable {
     
     associatedtype StoredObject: NSManagedObject
     
-    init(_ storedObject: StoredObject) throws
+    init(storedObject: StoredObject) throws
 
     @discardableResult
     func storedObject(byUpdating storedObject: StoredObject) throws -> StoredObject
