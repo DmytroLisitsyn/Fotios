@@ -34,7 +34,7 @@ public struct EmptyNetworkResponse {
 
 extension EmptyNetworkResponse: NetworkSuccess {
     
-    public init(_ networkBody: Data) throws {
+    public init(networkBody: Data) throws {
         self.init()        
     }
     
