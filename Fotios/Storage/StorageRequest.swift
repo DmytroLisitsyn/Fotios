@@ -55,7 +55,7 @@ public protocol Storable {
 extension Storable {
 
     @discardableResult
-    func storedObject(in context: NSManagedObjectContext) throws -> StoredObject {
+    public func storedObject(in context: NSManagedObjectContext) throws -> StoredObject {
         let storedObject = StoredObject(context: context)
         return try self.storedObject(byUpdating: storedObject)
     }
