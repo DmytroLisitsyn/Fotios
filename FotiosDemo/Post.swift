@@ -57,7 +57,7 @@ extension Post: Storable, StorageRequest {
     typealias StoredObject = CDPost
     typealias Storable = Self
     
-    init(_ storedObject: StoredObject) throws {
+    init(storedObject: StoredObject) throws {
         self.init(id: storedObject.id.unwrapped(or: ""))
         userID = storedObject.userID.unwrapped(or: "")
         title = storedObject.title.unwrapped(or: "")
