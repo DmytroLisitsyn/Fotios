@@ -46,7 +46,7 @@ extension Post: NetworkRequest, NetworkSuccess {
     typealias NetworkSuccess = Post
     typealias NetworkFailure = FotiosError
     
-    init(_ networkBody: Data) throws {
+    init(networkBody: Data) throws {
         self.init(id: "")
     }
             
@@ -64,12 +64,12 @@ extension Post: Storable, StorageRequest {
         body = storedObject.body.unwrapped(or: "")
     }
     
-    func storedObject(byUpdating updatingStoredObject: StoredObject) throws -> StoredObject {
-        updatingStoredObject.id = id
-        updatingStoredObject.userID = userID
-        updatingStoredObject.title = title
-        updatingStoredObject.body = body
-        return updatingStoredObject
+    func storedObject(byUpdating storedObject: StoredObject) throws -> StoredObject {
+        storedObject.id = id
+        storedObject.userID = userID
+        storedObject.title = title
+        storedObject.body = body
+        return storedObject
     }
     
     func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {

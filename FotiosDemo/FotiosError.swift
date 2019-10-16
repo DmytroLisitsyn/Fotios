@@ -30,7 +30,7 @@ enum FotiosError: NetworkFailure {
     case unauthorized
     case notFound
 
-    init(_ networkBody: Data, statusCode: Int) throws {
+    init(networkBody: Data, statusCode: Int) throws {
         switch statusCode {
         case 401:
             self = .unauthorized

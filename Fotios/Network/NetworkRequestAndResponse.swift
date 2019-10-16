@@ -88,6 +88,14 @@ extension NetworkRequest {
 
 public protocol NetworkSuccess {
 
-    init(_ networkBody: Data) throws
+    init(networkBody: Data) throws
 
+}
+
+// MARK: NetworkFailure
+
+public protocol NetworkFailure: Error {
+    
+    init(networkBody: Data, statusCode: Int) throws
+    
 }
