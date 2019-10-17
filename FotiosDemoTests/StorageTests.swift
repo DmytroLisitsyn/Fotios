@@ -31,7 +31,7 @@ final class StorageTests: XCTestCase {
     var storage: Storage!
     
     override func setUp() {
-        let model = Storage.dataModel(named: "Model.momd")
+        let model = Storage.storedObjectModel(named: "Model.momd")
         storage = Storage(model: model, shouldUseInMemoryStorage: true)
     }
     

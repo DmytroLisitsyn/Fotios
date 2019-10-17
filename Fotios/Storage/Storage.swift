@@ -31,7 +31,7 @@ public final class Storage {
     private let model: NSManagedObjectModel
     private let persistentContainer: NSPersistentContainer
 
-    public init(account: String = Storage.defaultAccount, model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
+    public init(account: String = "X-Storage-X", model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
         self.account = account
         self.model = model
         
@@ -116,11 +116,7 @@ public final class Storage {
 
 extension Storage {
     
-    public static var defaultAccount: String {
-        return "Storage"
-    }
-    
-    public static func dataModel(named name: String, in bundle: Bundle = .main) -> NSManagedObjectModel {
+    public static func storedObjectModel(named name: String, in bundle: Bundle = .main) -> NSManagedObjectModel {
         let modelURL = bundle.url(forResource: name, withExtension: nil)!
         let model = NSManagedObjectModel(contentsOf: modelURL)!
         return model
