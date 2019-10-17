@@ -59,5 +59,15 @@ extension Storable {
         let storedObject = StoredObject(context: context)
         return try self.storedObject(byUpdating: storedObject)
     }
+    
+    @discardableResult
+    public func storedObject(in context: NSManagedObjectContext?) throws -> StoredObject? {
+        guard let context = context else {
+            return nil
+        }
+        
+        let storedObject = StoredObject(context: context)
+        return try self.storedObject(byUpdating: storedObject)
+    }
 
 }
