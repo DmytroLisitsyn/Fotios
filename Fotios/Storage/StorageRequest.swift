@@ -75,5 +75,5 @@ extension Storable {
 // MARK: StoredObjectPrimaryKey
 
 public protocol StoredObjectPrimaryKey {
-    var storedObjectPrimaryKey: String { get }
+    static var storedObjectPrimaryKey: String { get }
 }
