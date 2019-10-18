@@ -37,13 +37,19 @@ public final class Storage {
         
         persistentContainer = NSPersistentContainer(name: account, managedObjectModel: model)
         
-        let storeDescription = NSPersistentStoreDescription()
-        storeDescription.shouldAddStoreAsynchronously = false
-        storeDescription.type = !shouldUseInMemoryStorage ? NSSQLiteStoreType : NSInMemoryStoreType
-        persistentContainer.persistentStoreDescriptions = [storeDescription]
-
+        if shouldUseInMemoryStorage {
+            let storeDescription = NSPersistentStoreDescription()
+            storeDescription.shouldAddStoreAsynchronously = false
+            storeDescription.shouldMigrateStoreAutomatically = true
+            storeDescription.type = NSInMemoryStoreType
+            
+            persistentContainer.persistentStoreDescriptions = [storeDescription]
+        }
+        
         persistentContainer.loadPersistentStores(completionHandler: persistentStoresLoadingHandler)
+        
         persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+        persistentContainer.viewContext.shouldDeleteInaccessibleFaults = true
     }
     
     public func save<T: Storable>(_ entity: T) throws {
@@ -62,6 +68,7 @@ public final class Storage {
             
             if context.hasChanges {
                 try context.save()
+                context.reset()
             }
         }
     }
@@ -92,6 +99,7 @@ public final class Storage {
             
             if context.hasChanges {
                 try context.save()
+                context.reset()
             }
         }
     }
@@ -108,6 +116,7 @@ public final class Storage {
             
             if context.hasChanges {
                 try context.save()
+                context.reset()
             }
         }        
     }
@@ -153,7 +162,7 @@ extension Storage {
     private func performAndWait<T>(_ block: (_ context: NSManagedObjectContext) throws -> T) throws -> T {
         let container = PerformAndWaitResultContainer<T>()
         let context = persistentContainer.newBackgroundContext()
-        
+
         var error: Error?
                 
         context.performAndWait {
