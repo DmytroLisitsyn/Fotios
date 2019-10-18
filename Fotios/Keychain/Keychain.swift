@@ -36,6 +36,23 @@ public protocol Keychain {
     
 }
 
+extension Keychain {
+    
+    public func save(_ value: String, as item: KeychainItem) throws {
+        let data = value.data(using: .utf8, allowLossyConversion: true)!
+        try save(data, as: item)
+    }
+    
+    public func fetch(_ item: KeychainItem) throws -> String? {
+        guard let data = try fetch(item) as Data? else {
+            return nil
+        }
+        
+        return String(data: data, encoding: .utf8)
+    }
+    
+}
+
 // MARK: KeychainItem
 
 public struct KeychainItem: Hashable {
