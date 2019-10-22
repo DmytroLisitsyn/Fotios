@@ -67,7 +67,7 @@ public final class Network {
                     return
                 }
                 
-                recoverer.tryToRecover(from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
+                recoverer.tryToRecover(network: self, from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
                     self.send(request, shouldTryToRecoverFromError: false, completionHandler: completionHandler)
                 }, failureHandler: {
                     completionHandler(.failure(error))

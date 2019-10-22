@@ -26,6 +26,6 @@ import Foundation
 
 public protocol NetworkRequestRecoverable {
     
-    func tryToRecover(from error: Error, shouldForceFailure: Bool, successHandler: @escaping Closure<Void>, failureHandler: @escaping Closure<Void>)
+    func tryToRecover(network: Network, from error: Error, shouldForceFailure: Bool, successHandler: @escaping Closure<Void>, failureHandler: @escaping Closure<Void>)
     
 }
