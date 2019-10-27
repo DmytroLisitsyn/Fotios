@@ -69,7 +69,7 @@ public class MockNetworkSession: NetworkSession {
     
     public init(bundle: Bundle = .main, jsonResource: String? = nil, statusCode: Int = 200, callbackError: Error? = nil) {
         if let jsonResource = jsonResource {
-            let url = bundle.url(forResource: jsonResource, withExtension: "json")!
+            let url = bundle.url(forResource: jsonResource, withExtension: nil)!
             data = try! Data(contentsOf: url)
         }
         
