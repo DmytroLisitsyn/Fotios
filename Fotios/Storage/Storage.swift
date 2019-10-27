@@ -52,73 +52,111 @@ public final class Storage {
         persistentContainer.viewContext.shouldDeleteInaccessibleFaults = true
     }
     
-    public func save<T: Storable>(_ entity: T) throws {
-        try save([entity])
+    public func save<T: Storable>(_ entity: T, completionHandler: Closure<PlainResult>?) {
+        save([entity], completionHandler: completionHandler)
     }
     
-    public func save<T: Storable>(_ entities: [T]) throws {
-        try performAndWait { context in
-            for entity in entities {
-                if let request = entity as? AnyStorageRequest, let storedObject = try context.fetch(request.fetchRequest()).first as? T.StoredObject {
-                    try entity.storedObject(byUpdating: storedObject)
-                } else {
-                    try entity.storedObject(in: context)
+    public func save<T: Storable>(_ entities: [T], completionHandler: Closure<PlainResult>?) {
+        let context = persistentContainer.newBackgroundContext()
+        
+        context.perform {
+            do {
+                for entity in entities {
+                    if let request = entity as? AnyStorageRequest, let storedObject = try context.fetch(request.fetchRequest()).first as? T.StoredObject {
+                        try entity.storedObject(byUpdating: storedObject)
+                    } else {
+                        try entity.storedObject(in: context)
+                    }
                 }
-            }
-            
-            if context.hasChanges {
-                try context.save()
-                context.reset()
-            }
-        }
-    }
-
-    public func fetchFirst<T: StorageRequest>(_ request: T) throws -> T.Storable? {
-        return try performAndWait { context -> T.Storable? in
-            let fetchRequest = request.fetchRequest()
-            fetchRequest.fetchLimit = 1
-            
-            let storedObject = try context.fetch(fetchRequest).first as? T.Storable.StoredObject
-            let entity = try storedObject.map(T.Storable.init)
-            return entity
-        }
-    }
-    
-    public func fetch<T: StorageRequest>(_ request: T) throws -> [T.Storable] {
-        return try performAndWait { context -> [T.Storable] in
-            let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
-            let entities = try storedObjects.map(T.Storable.init)
-            return entities
-        }
-    }
-
-    public func delete<T: StorageRequest>(_ request: T) throws {
-        try performAndWait { context in
-            let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
-            storedObjects.forEach(context.delete)
-            
-            if context.hasChanges {
-                try context.save()
-                context.reset()
-            }
-        }
-    }
-    
-    public func deleteAll() throws {
-        try performAndWait { context in
-            for entityDescription in model.entities {
-                guard let entityName = entityDescription.name else { continue }
                 
-                let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-                let storedObjects = try context.fetch(fetchRequest) as! [NSManagedObject]
+                if context.hasChanges {
+                    try context.save()
+                    context.reset()
+                }
+                
+                completionHandler?(.success(()))
+            } catch let error {
+                completionHandler?(.failure(error))
+            }
+        }
+    }
+
+    public func fetchFirst<T: StorageRequest>(_ request: T, completionHandler: Closure<TypedResult<T.Storable?>>?) {
+        let context = persistentContainer.newBackgroundContext()
+        
+        context.perform {
+            do {
+                let fetchRequest = request.fetchRequest()
+                fetchRequest.fetchLimit = 1
+                
+                let storedObject = try context.fetch(fetchRequest).first as? T.Storable.StoredObject
+                let entity = try storedObject.map(T.Storable.init)
+                
+                completionHandler?(.success(entity))
+            } catch let error {
+                completionHandler?(.failure(error))
+            }
+        }
+    }
+    
+    public func fetch<T: StorageRequest>(_ request: T, completionHandler: Closure<TypedResult<[T.Storable]>>?) {
+        let context = persistentContainer.newBackgroundContext()
+        
+        context.perform {
+            do {
+                let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
+                let entities = try storedObjects.map(T.Storable.init)
+
+                completionHandler?(.success(entities))
+            } catch let error {
+                completionHandler?(.failure(error))
+            }
+        }
+    }
+
+    public func delete<T: StorageRequest>(_ request: T, completionHandler: Closure<PlainResult>?) {
+        let context = persistentContainer.newBackgroundContext()
+        
+        context.perform {
+            do {
+                let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
                 storedObjects.forEach(context.delete)
+                
+                if context.hasChanges {
+                    try context.save()
+                    context.reset()
+                }
+
+                completionHandler?(.success(()))
+            } catch let error {
+                completionHandler?(.failure(error))
             }
-            
-            if context.hasChanges {
-                try context.save()
-                context.reset()
+        }
+    }
+    
+    public func deleteAll(completionHandler: Closure<PlainResult>?) {
+        let context = persistentContainer.newBackgroundContext()
+        
+        context.perform {
+            do {
+                for entityDescription in self.model.entities {
+                    guard let entityName = entityDescription.name else { continue }
+                    
+                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+                    let storedObjects = try context.fetch(fetchRequest) as! [NSManagedObject]
+                    storedObjects.forEach(context.delete)
+                }
+                
+                if context.hasChanges {
+                    try context.save()
+                    context.reset()
+                }
+
+                completionHandler?(.success(()))
+            } catch let error {
+                completionHandler?(.failure(error))
             }
-        }        
+        }
     }
 
 }
@@ -151,31 +189,4 @@ extension Storage {
         }
     }
 
-}
-
-extension Storage {
-    
-    private final class PerformAndWaitResultContainer<T> {
-        var value: T?
-    }
-    
-    private func performAndWait<T>(_ block: (_ context: NSManagedObjectContext) throws -> T) throws -> T {
-        let container = PerformAndWaitResultContainer<T>()
-        let context = persistentContainer.newBackgroundContext()
-
-        var error: Error?
-                
-        context.performAndWait {
-            do {
-                container.value = try block(context)
-            } catch let catchedError {
-                error = catchedError
-            }
-        }
-        
-        try error.map { throw $0 }
-        
-        return container.value!
-    }
-    
 }

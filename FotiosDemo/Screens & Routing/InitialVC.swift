@@ -30,21 +30,7 @@ final class InitialVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let storage = Storage(model: Storage.storedObjectModel(named: "Model.momd"))        
-        let post1 = Post(id: "Post1")
         
-        do {
-            var retrievedPost = try storage.fetchFirst(post1)
-            debugPrint(retrievedPost)
-            
-            try storage.save(post1)
-            
-            retrievedPost = try storage.fetchFirst(post1)
-            debugPrint(retrievedPost)
-
-        } catch let error {
-            debugPrint(error)
-        }
     }
 
 }
