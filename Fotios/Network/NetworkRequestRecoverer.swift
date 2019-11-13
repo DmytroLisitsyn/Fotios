@@ -26,6 +26,6 @@ import Foundation
 
 public protocol NetworkRequestRecoverer {
     
-    func network(_ netowrk: Network, didAskForRecoveryAfter request: Any, from error: Error, shouldForceFailure: Bool, successHandler: @escaping Closure<Void>, failureHandler: @escaping Closure<Void>)
+    func network(_ network: Network, didAskForRecoveryAfter request: Any, from error: Error, shouldForceFailure: Bool, successHandler: @escaping Closure<Void>, failureHandler: @escaping Closure<Void>)
     
 }
