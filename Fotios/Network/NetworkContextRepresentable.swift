@@ -74,8 +74,10 @@ public final class NetworkContextFetcher: ObserverContainable {
     }
     
     private func didSetContext(_ context: NetworkContextRepresentable) {
-        observers.enumerateObservers { observer in
-            observer.didUpdateContext(self)
+        DispatchQueue.main.async {
+            self.observers.enumerateObservers { observer in
+                observer.didUpdateContext(self)
+            }
         }
     }
     
