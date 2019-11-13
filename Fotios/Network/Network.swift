@@ -30,7 +30,7 @@ public final class Network {
     
     public var session: NetworkSession
     
-    public var recoverer: NetworkRequestRecoverable?
+    public var recoverer: NetworkRequestRecoverer?
     
     public init(contextFetcher: NetworkContextFetcher, session: NetworkSession) {
         self.contextFetcher = contextFetcher
@@ -67,7 +67,7 @@ public final class Network {
                     return
                 }
                 
-                recoverer.tryToRecover(network: self, from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
+                recoverer.network(self, didAskForRecoveryAfter: request, from: error, shouldForceFailure: !shouldTryToRecoverFromError, successHandler: {
                     self.send(request, shouldTryToRecoverFromError: false, completionHandler: completionHandler)
                 }, failureHandler: {
                     completionHandler(.failure(error))
