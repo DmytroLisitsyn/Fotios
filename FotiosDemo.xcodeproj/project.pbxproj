@@ -11,6 +11,11 @@
 		CD1120A823450AC50096C680 /* FotiosError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A723450AC50096C680 /* FotiosError.swift */; };
 		CD1120AC234514810096C680 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CD1120A92345124E0096C680 /* Model.xcdatamodeld */; };
 		CD1120AE23453E160096C680 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1120AD23453E160096C680 /* StorageTests.swift */; };
+		CD3C7374237C413200FBDBF3 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7373237C413200FBDBF3 /* Logger.swift */; };
+		CD3C7376237C41A200FBDBF3 /* LoggerBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7375237C41A200FBDBF3 /* LoggerBundle.swift */; };
+		CD3C7378237C421E00FBDBF3 /* DeviceOutputLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7377237C421E00FBDBF3 /* DeviceOutputLogger.swift */; };
+		CD3C737A237C423B00FBDBF3 /* DebugOutputLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */; };
+		CD3C737C237C427D00FBDBF3 /* AppEventsNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C737B237C427D00FBDBF3 /* AppEventsNotifier.swift */; };
 		CD9D0B5A23463E0A00AE2B43 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D0B5923463E0A00AE2B43 /* Keychain.swift */; };
 		CDB5F7CE233E83FE00C9C834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */; };
 		CDB5F7D2233E83FE00C9C834 /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7D1233E83FE00C9C834 /* InitialVC.swift */; };
@@ -77,6 +82,11 @@
 		CD1120A723450AC50096C680 /* FotiosError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotiosError.swift; sourceTree = "<group>"; };
 		CD1120AA2345124E0096C680 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		CD1120AD23453E160096C680 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		CD3C7373237C413200FBDBF3 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		CD3C7375237C41A200FBDBF3 /* LoggerBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerBundle.swift; sourceTree = "<group>"; };
+		CD3C7377237C421E00FBDBF3 /* DeviceOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOutputLogger.swift; sourceTree = "<group>"; };
+		CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOutputLogger.swift; sourceTree = "<group>"; };
+		CD3C737B237C427D00FBDBF3 /* AppEventsNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEventsNotifier.swift; sourceTree = "<group>"; };
 		CD9D0B5923463E0A00AE2B43 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		CDB5F7CA233E83FE00C9C834 /* FotiosDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotiosDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +147,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD3C7372237C404A00FBDBF3 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				CD3C7373237C413200FBDBF3 /* Logger.swift */,
+				CD3C7375237C41A200FBDBF3 /* LoggerBundle.swift */,
+				CD3C7377237C421E00FBDBF3 /* DeviceOutputLogger.swift */,
+				CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
 		CD9D0B58234637B400AE2B43 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +210,8 @@
 				CD9D0B58234637B400AE2B43 /* Keychain */,
 				CDDC069C23421DAF00715827 /* Storage */,
 				CDB5F7F3233E848A00C9C834 /* Network */,
+				CD3C7372237C404A00FBDBF3 /* Logger */,
+				CD3C737B237C427D00FBDBF3 /* AppEventsNotifier.swift */,
 				CDB5F7E8233E842C00C9C834 /* Fotios.h */,
 				CDB5F7E9233E842C00C9C834 /* Info.plist */,
 			);
@@ -407,13 +430,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD9D0B5A23463E0A00AE2B43 /* Keychain.swift in Sources */,
+				CD3C7374237C413200FBDBF3 /* Logger.swift in Sources */,
 				CDB5F812233E8D1900C9C834 /* NetworkRequestRecoverer.swift in Sources */,
 				CDB5F822233E93DD00C9C834 /* NetworkContextRepresentable.swift in Sources */,
+				CD3C7378237C421E00FBDBF3 /* DeviceOutputLogger.swift in Sources */,
 				CDB7E5F22346410E009BB585 /* MockKeychain.swift in Sources */,
 				CDB5F81C233E914400C9C834 /* ObserverContainer.swift in Sources */,
 				CDB5F810233E89CA00C9C834 /* NetworkTask.swift in Sources */,
 				CDB6149F2346797800D3C093 /* EmptyNetworkResponse.swift in Sources */,
 				CDB5F81E233E916400C9C834 /* RepeatingOperation.swift in Sources */,
+				CD3C737C237C427D00FBDBF3 /* AppEventsNotifier.swift in Sources */,
 				CDB5F803233E865500C9C834 /* Network.swift in Sources */,
 				CDB5F81A233E911000C9C834 /* DispatchQueueExtension.swift in Sources */,
 				CDB5F816233E8DBF00C9C834 /* OptionalExtension.swift in Sources */,
@@ -424,6 +450,8 @@
 				CDB7E5F42346469D009BB585 /* ArrayExtension.swift in Sources */,
 				CDB5F818233E905400C9C834 /* HashableExtension.swift in Sources */,
 				CDB5F824233E9B6E00C9C834 /* NetworkRequestAndResponse.swift in Sources */,
+				CD3C7376237C41A200FBDBF3 /* LoggerBundle.swift in Sources */,
+				CD3C737A237C423B00FBDBF3 /* DebugOutputLogger.swift in Sources */,
 				CDB7E5F023464104009BB585 /* AppleKeychain.swift in Sources */,
 				CDDC069F23421DAF00715827 /* Storage.swift in Sources */,
 				CDEFEDBB234B69B900957B81 /* RangeExtension.swift in Sources */,
