@@ -77,6 +77,13 @@ public class MockNetworkSession: NetworkSession {
         self.callbackError = callbackError
     }
     
+    public init(jsonString: String, statusCode: Int = 200, callbackError: Error? = nil) {
+        data = jsonString.data(using: .utf8)
+        
+        self.statusCode = statusCode
+        self.callbackError = callbackError
+    }
+
     public init(json: Any, statusCode: Int = 200, callbackError: Error? = nil) {
         data = try? JSONSerialization.data(withJSONObject: json)
         
