@@ -29,4 +29,5 @@ timeline.xctimeline
 playground.xcworkspace
 
 .build/
+Carthage/
 

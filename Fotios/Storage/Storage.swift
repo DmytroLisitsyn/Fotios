@@ -23,170 +23,143 @@
 //
 
 import Foundation
-import CoreData
+import RealmSwift
 
 public final class Storage {
     
-    private let account: String
-    private let model: NSManagedObjectModel
-    private let persistentContainer: NSPersistentContainer
-
-    public init(account: String = "X-Storage-X", model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
-        self.account = account
-        self.model = model
+    public let account: String?
+    
+    /// - Note: Keep value up to date with Realm entities changes.
+    ///
+    /// See [docs](https://realm.io/docs/swift/latest/#performing-a-migration) for details.
+    private let schemaVersion: UInt64 = 0
         
-        persistentContainer = NSPersistentContainer(name: account, managedObjectModel: model)
+    private var configuration: Realm.Configuration!
+    
+    /// - Attention: Set `shouldResetStorageIfMigrationNeeded` to `false` before release. Consider writing storages migrator, that will run before any dependency configuration.
+    public init(account: String?, encryptionKey: Data? = nil, shouldUseInMemoryStorage: Bool = false, shouldResetStorageIfMigrationNeeded: Bool = true, migrationBlock: RealmSwift.MigrationBlock? = nil) {
+        self.account = account
+        
+        configuration = Realm.Configuration(encryptionKey: encryptionKey, schemaVersion: schemaVersion, migrationBlock: migrationBlock)
+        
+        let database = account ?? "Default"
+        configuration.fileURL = configuration.fileURL!.deletingLastPathComponent().appendingPathComponent("\(database).realm")
+        
+        configuration.deleteRealmIfMigrationNeeded = shouldResetStorageIfMigrationNeeded
         
         if shouldUseInMemoryStorage {
-            let storeDescription = NSPersistentStoreDescription()
-            storeDescription.shouldAddStoreAsynchronously = false
-            storeDescription.shouldMigrateStoreAutomatically = true
-            storeDescription.type = NSInMemoryStoreType
+            configuration.inMemoryIdentifier = UUID().uuidString
+        }
+    }
+    
+    public func migrateIfNeeded(completionHandler: () -> Void) {
+        _ = try! Realm(configuration: configuration)
+        
+        completionHandler()
+    }
+    
+}
+
+extension Storage {
+    
+    public func save<T: Storable>(_ entity: T) throws {
+        try save([entity])
+    }
+    
+    public func save<T: Storable>(_ entities: [T]) throws {
+        let realm = try Realm(configuration: configuration)
+        
+        try realm.write {
+            let storedObjects = try entities.map { try $0.storedObject(in: realm) }
+            realm.add(storedObjects, update: .modified)
+        }
+    }
+    
+    public func fetchFirst<T: StorageRequest>(_ request: T) throws -> T.Storable? {
+        let realm = try Realm(configuration: configuration)
+        let rlmList = try fetch(request, realm: realm)
+
+        let entity = try rlmList.first.flatMap(T.Storable.init)
+        return entity
+    }
+
+    public func fetch<T: StorageRequest>(_ request: T) throws -> [T.Storable] {
+        let realm = try Realm(configuration: configuration)
+        let rlmList = try fetch(request, realm: realm)
+
+        let entities = try rlmList.map(T.Storable.init)
+        return entities
+    }
+
+    public func count<T: StorageRequest>(_ request: T) throws -> Int {
+        let realm = try Realm(configuration: configuration)
+        let rlmList = try fetch(request, realm: realm)
+        return rlmList.count
+    }
+
+    public func delete<T: StorageRequest>(_ request: T) throws {
+        let realm = try Realm(configuration: configuration)
+        let rlmList = try fetch(request, realm: realm)
+
+        try realm.write {
+            realm.delete(rlmList)
+        }
+    }
+    
+    public func purge() throws {
+        let realm = try Realm(configuration: configuration)
+        
+        if let fileURL = configuration.fileURL {
+            realm.invalidate()
             
-            persistentContainer.persistentStoreDescriptions = [storeDescription]
-        }
-        
-        persistentContainer.loadPersistentStores(completionHandler: persistentStoresLoadingHandler)
-        
-        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
-        persistentContainer.viewContext.shouldDeleteInaccessibleFaults = true
-    }
-    
-    public func save<T: Storable>(_ entity: T, completionHandler: Closure<PlainResult>?) {
-        save([entity], completionHandler: completionHandler)
-    }
-    
-    public func save<T: Storable>(_ entities: [T], completionHandler: Closure<PlainResult>?) {
-        let context = persistentContainer.newBackgroundContext()
-        
-        context.perform {
-            do {
-                for entity in entities {
-                    if let request = entity as? AnyStorageRequest, let storedObject = try context.fetch(request.fetchRequest()).first as? T.StoredObject {
-                        try entity.storedObject(byUpdating: storedObject)
-                    } else {
-                        try entity.storedObject(in: context)
-                    }
-                }
-                
-                if context.hasChanges {
-                    try context.save()
-                    context.reset()
-                }
-                
-                completionHandler?(.success(()))
-            } catch let error {
-                completionHandler?(.failure(error))
+            try FileManager.default.removeItem(at: fileURL)
+        } else {
+            try realm.write {
+                realm.deleteAll()
             }
+            
+            realm.invalidate()
         }
-    }
-
-    public func fetchFirst<T: StorageRequest>(_ request: T, completionHandler: Closure<TypedResult<T.Storable?>>?) {
-        let context = persistentContainer.newBackgroundContext()
-        
-        context.perform {
-            do {
-                let fetchRequest = request.fetchRequest()
-                fetchRequest.fetchLimit = 1
-                
-                let storedObject = try context.fetch(fetchRequest).first as? T.Storable.StoredObject
-                let entity = try storedObject.map(T.Storable.init)
-                
-                completionHandler?(.success(entity))
-            } catch let error {
-                completionHandler?(.failure(error))
-            }
-        }
-    }
-    
-    public func fetch<T: StorageRequest>(_ request: T, completionHandler: Closure<TypedResult<[T.Storable]>>?) {
-        let context = persistentContainer.newBackgroundContext()
-        
-        context.perform {
-            do {
-                let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
-                let entities = try storedObjects.map(T.Storable.init)
-
-                completionHandler?(.success(entities))
-            } catch let error {
-                completionHandler?(.failure(error))
-            }
-        }
-    }
-
-    public func delete<T: StorageRequest>(_ request: T, completionHandler: Closure<PlainResult>?) {
-        let context = persistentContainer.newBackgroundContext()
-        
-        context.perform {
-            do {
-                let storedObjects = try context.fetch(request.fetchRequest()) as! [T.Storable.StoredObject]
-                storedObjects.forEach(context.delete)
-                
-                if context.hasChanges {
-                    try context.save()
-                    context.reset()
-                }
-
-                completionHandler?(.success(()))
-            } catch let error {
-                completionHandler?(.failure(error))
-            }
-        }
-    }
-    
-    public func deleteAll(completionHandler: Closure<PlainResult>?) {
-        let context = persistentContainer.newBackgroundContext()
-        
-        context.perform {
-            do {
-                for entityDescription in self.model.entities {
-                    guard let entityName = entityDescription.name else { continue }
-                    
-                    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-                    let storedObjects = try context.fetch(fetchRequest) as! [NSManagedObject]
-                    storedObjects.forEach(context.delete)
-                }
-                
-                if context.hasChanges {
-                    try context.save()
-                    context.reset()
-                }
-
-                completionHandler?(.success(()))
-            } catch let error {
-                completionHandler?(.failure(error))
-            }
-        }
-    }
-
-}
-
-extension Storage {
-    
-    public static func storedObjectModel(named name: String, in bundle: Bundle = .main) -> NSManagedObjectModel {
-        let modelURL = bundle.url(forResource: name, withExtension: nil)!
-        let model = NSManagedObjectModel(contentsOf: modelURL)!
-        return model
     }
     
 }
 
 extension Storage {
-
-    public static var persistentStoresLoadingHandler: ((NSPersistentStoreDescription, Error?) -> Void) {
-        return { (storeDescription, error) in
-            if let error = error as NSError? {
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+    
+    private func fetch<T: StorageRequest>(_ request: T, realm: Realm) throws -> Results<T.Storable.StoredObject> {
+        var result = realm.objects(T.Storable.StoredObject.self)
+        
+        if let query = request.filter() {
+            result = result.filter(query)
+        }
+        
+        if let pagination = request.pagination() {
+            let lowerBound = pagination.page * pagination.entitiesPerPage
+            let upperBound = lowerBound + pagination.entitiesPerPage
+            
+            if lowerBound > result.count {
+                _ = result.dropLast(result.count)
+            } else if upperBound > result.count {
+                result = result[lowerBound..<result.count].base
+            } else {
+                result = result[lowerBound..<upperBound].base
             }
         }
+
+        return result
     }
+
+//    private var encryptionKey: Data {
+//        let key: Data
+//
+//        if let storedKey = try? keychain.fetch(.storageEncryptionKey) {
+//            key = storedKey
+//        } else {
+//            key = .makeRandomSecureBytes(count: 64)
+//            try? keychain.save(key, as: .storageEncryptionKey)
+//        }
+//
+//        return key
+//    }
 
 }
