@@ -42,11 +42,11 @@ public protocol StorageRequest: AnyStorageRequest {
 
 extension AnyStorageRequest {
     
-    func filter() -> NSPredicate? {
+    public func filter() -> NSPredicate? {
         return nil
     }
     
-    func pagination() -> (page: Int, entitiesPerPage: Int)? {
+    public func pagination() -> (page: Int, entitiesPerPage: Int)? {
         return nil
     }
     
