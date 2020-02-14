@@ -107,18 +107,11 @@ extension Storage {
     }
     
     public func purge() throws {
-        let realm = try Realm(configuration: configuration)
+        let realmURL = configuration.fileURL!
+        let realmURLs = [realmURL, realmURL.appendingPathExtension("lock"), realmURL.appendingPathExtension("note"), realmURL.appendingPathExtension("management")]
         
-        if let fileURL = configuration.fileURL {
-            realm.invalidate()
-            
-            try FileManager.default.removeItem(at: fileURL)
-        } else {
-            try realm.write {
-                realm.deleteAll()
-            }
-            
-            realm.invalidate()
+        for URL in realmURLs {
+            try FileManager.default.removeItem(at: URL)
         }
     }
     

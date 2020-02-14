@@ -26,6 +26,20 @@ import Foundation
 
 extension Array {
     
+    public func index(offset: Int) -> Int {
+        let index = (offset % count + count) % count
+        return index
+    }
+    
+    public subscript(offset offset: Int) -> Element {
+        get {
+            return self[index(offset: offset)]
+        }
+        set(newValue) {
+            self[index(offset: offset)] = newValue
+        }
+    }
+
     public func element(at index: Int?) -> Element? {
         if let index = index, (0..<count).contains(index) {
             return self[index]
@@ -45,20 +59,6 @@ extension Array {
             return Array(self[lowerBound..<count])
         } else {
             return Array(self[lowerBound..<upperBound])
-        }
-    }
-    
-    public func index(offset: Int) -> Int {
-        let index = (offset % count + count) % count
-        return index
-    }
-    
-    public subscript(offset offset: Int) -> Element {
-        get {
-            return self[index(offset: offset)]
-        }
-        set(newValue) {
-            self[index(offset: offset)] = newValue
         }
     }
     

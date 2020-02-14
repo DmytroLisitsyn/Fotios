@@ -17,6 +17,8 @@
 		CD3C737A237C423B00FBDBF3 /* DebugOutputLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */; };
 		CD3C737C237C427D00FBDBF3 /* AppEventsNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C737B237C427D00FBDBF3 /* AppEventsNotifier.swift */; };
 		CD9D0B5A23463E0A00AE2B43 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D0B5923463E0A00AE2B43 /* Keychain.swift */; };
+		CDB2781D23F7115200FF9838 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB2780D23F6E82600FF9838 /* Realm.framework */; };
+		CDB2781F23F7115200FF9838 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB2780E23F6E82600FF9838 /* RealmSwift.framework */; };
 		CDB5F7CE233E83FE00C9C834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */; };
 		CDB5F7D2233E83FE00C9C834 /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7D1233E83FE00C9C834 /* InitialVC.swift */; };
 		CDB5F7D5233E83FE00C9C834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB5F7D3233E83FE00C9C834 /* Main.storyboard */; };
@@ -128,7 +130,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDB2781D23F7115200FF9838 /* Realm.framework in Frameworks */,
 				CDB5F7ED233E842C00C9C834 /* Fotios.framework in Frameworks */,
+				CDB2781F23F7115200FF9838 /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +312,7 @@
 				CDB5F7C7233E83FE00C9C834 /* Frameworks */,
 				CDB5F7C8233E83FE00C9C834 /* Resources */,
 				CDB5F7F2233E842C00C9C834 /* Embed Frameworks */,
+				CDB2781C23F7112100FF9838 /* Script - Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -327,7 +332,6 @@
 				CDB5F7E2233E842C00C9C834 /* Sources */,
 				CDB5F7E3233E842C00C9C834 /* Frameworks */,
 				CDB5F7E4233E842C00C9C834 /* Resources */,
-				CDB2781523F6EBB500FF9838 /* Script - Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -426,7 +430,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CDB2781523F6EBB500FF9838 /* Script - Copy Carthage Frameworks */ = {
+		CDB2781C23F7112100FF9838 /* Script - Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -650,6 +654,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VK8C6Y4535;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = FotiosDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -670,6 +678,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VK8C6Y4535;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = FotiosDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
