@@ -48,4 +48,36 @@ extension Array {
         }
     }
     
+    public func index(offset: Int) -> Int {
+        let index = (offset % count + count) % count
+        return index
+    }
+    
+    public subscript(offset offset: Int) -> Element {
+        get {
+            return self[index(offset: offset)]
+        }
+        set(newValue) {
+            self[index(offset: offset)] = newValue
+        }
+    }
+    
+    public mutating func prefetchArray(expectedCount: Int, makeElement: (_ index: Int) -> Element, deleteElement: (Element) -> Void = { _ in }) {
+        let diff = count - expectedCount
+        if diff < 0 {
+            var newElements = Self.init()
+            
+            for index in 0..<abs(diff) {
+                let element = makeElement(index + count)
+                newElements.append(element)
+            }
+            
+            append(contentsOf: newElements)
+        } else if diff > 0 {
+            let toRemove = suffix(diff)
+            toRemove.forEach(deleteElement)
+            removeLast(diff)
+        }
+    }
+
 }
