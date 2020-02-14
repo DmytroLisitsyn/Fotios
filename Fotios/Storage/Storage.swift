@@ -71,7 +71,7 @@ extension Storage {
         
         try realm.write {
             let storedObjects = try entities.map { try $0.storedObject(in: realm) }
-            realm.add(storedObjects, update: .modified)
+            realm.add(storedObjects)
         }
     }
     
