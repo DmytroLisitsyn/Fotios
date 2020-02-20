@@ -122,11 +122,11 @@ extension Storage {
     private func fetch<T: StorageRequest>(_ request: T, realm: Realm) throws -> Results<T.Storable.StoredObject> {
         var result = realm.objects(T.Storable.StoredObject.self)
         
-        if let query = request.filter() {
-            result = result.filter(query)
+        for filterQuery in request.storageFilters() {
+            result = result.filter(filterQuery)
         }
-        
-        if let pagination = request.pagination() {
+
+        if let pagination = request.storagePagination() {
             let lowerBound = pagination.page * pagination.entitiesPerPage
             let upperBound = lowerBound + pagination.entitiesPerPage
             
@@ -141,18 +141,5 @@ extension Storage {
 
         return result
     }
-
-//    private var encryptionKey: Data {
-//        let key: Data
-//
-//        if let storedKey = try? keychain.fetch(.storageEncryptionKey) {
-//            key = storedKey
-//        } else {
-//            key = .makeRandomSecureBytes(count: 64)
-//            try? keychain.save(key, as: .storageEncryptionKey)
-//        }
-//
-//        return key
-//    }
 
 }
