@@ -29,26 +29,27 @@ import RealmSwift
 
 public protocol AnyStorageRequest {
     
-    func filter() -> NSPredicate?
-    func pagination() -> (page: Int, entitiesPerPage: Int)?
+    func storageFilters() -> [NSPredicate]
+    func storagePagination() -> (page: Int, entitiesPerPage: Int)?
 
-}
-
-public protocol StorageRequest: AnyStorageRequest {
-    
-    associatedtype Storable: Fotios.Storable
-        
 }
 
 extension AnyStorageRequest {
     
-    public func filter() -> NSPredicate? {
+    public func storageFilters() -> [NSPredicate] {
+        return []
+    }
+    
+    public func storagePagination() -> (page: Int, entitiesPerPage: Int)? {
         return nil
     }
     
-    public func pagination() -> (page: Int, entitiesPerPage: Int)? {
-        return nil
-    }
+}
+
+
+public protocol StorageRequest: AnyStorageRequest {
+    
+    associatedtype Storable: Fotios.Storable
     
 }
 
