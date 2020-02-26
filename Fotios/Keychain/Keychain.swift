@@ -30,7 +30,7 @@ public protocol Keychain {
     
     init(account: String)
     
-    func save(_ value: Data, as item: KeychainItem) throws
+    func save(_ value: Data?, as item: KeychainItem) throws
     func fetch(_ item: KeychainItem) throws -> Data?
     func delete(_ item: KeychainItem) throws
     
@@ -38,8 +38,8 @@ public protocol Keychain {
 
 extension Keychain {
     
-    public func save(_ value: String, as item: KeychainItem) throws {
-        let data = value.data(using: .utf8, allowLossyConversion: true)!
+    public func save(_ value: String?, as item: KeychainItem) throws {
+        let data = value?.data(using: .utf8, allowLossyConversion: true)
         try save(data, as: item)
     }
     
