@@ -38,8 +38,8 @@ public protocol NetworkRequest {
     func networkURLQuery(in context: NetworkContextRepresentable) -> [String: String?]
     
     func networkMethod(in context: NetworkContextRepresentable) -> String
-    func networkHeaderFields(in context: NetworkContextRepresentable) -> [String: String]
     func networkBody(in context: NetworkContextRepresentable) -> Data?
+    func networkHeaderFields(in context: NetworkContextRepresentable, networkBody: Data?) -> [String: String]
     
 }
 
@@ -50,16 +50,10 @@ extension NetworkRequest {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = networkMethod(in: context)
-        urlRequest.allHTTPHeaderFields = networkHeaderFields(in: context)
         urlRequest.httpBody = networkBody(in: context)
+        urlRequest.allHTTPHeaderFields = networkHeaderFields(in: context, networkBody: urlRequest.httpBody)
         
         return urlRequest
-    }
-    
-    public func networkURL(in context: NetworkContextRepresentable) -> URL {
-        let path = networkURLPath(in: context)
-        let query = networkURLQuery(in: context)
-        return context.apiURL(path: path, query: query)
     }
 
     public func networkURLPath(in context: NetworkContextRepresentable) -> String {
@@ -70,16 +64,22 @@ extension NetworkRequest {
         return [:]
     }
     
+    public func networkURL(in context: NetworkContextRepresentable) -> URL {
+        let path = networkURLPath(in: context)
+        let query = networkURLQuery(in: context)
+        return context.apiURL(path: path, query: query)
+    }
+
     public func networkMethod(in context: NetworkContextRepresentable) -> String {
         return "GET"
     }
     
-    public func networkHeaderFields(in context: NetworkContextRepresentable) -> [String: String] {
-        return context.headerFields()
-    }
-    
     public func networkBody(in context: NetworkContextRepresentable) -> Data? {
         return nil
+    }
+    
+    func networkHeaderFields(in context: NetworkContextRepresentable, networkBody: Data?) -> [String: String] {
+        return context.headerFields()
     }
 
 }
