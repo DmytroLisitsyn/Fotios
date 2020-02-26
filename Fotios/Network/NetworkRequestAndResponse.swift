@@ -78,7 +78,7 @@ extension NetworkRequest {
         return nil
     }
     
-    func networkHeaderFields(in context: NetworkContextRepresentable, networkBody: Data?) -> [String: String] {
+    public func networkHeaderFields(in context: NetworkContextRepresentable, networkBody: Data?) -> [String: String] {
         return context.headerFields()
     }
 
