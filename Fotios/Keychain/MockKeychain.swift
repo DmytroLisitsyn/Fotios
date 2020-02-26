@@ -36,7 +36,7 @@ public final class MockKeychain: Keychain {
         self.init(account: account, values: [:])
     }
     
-    public func save(_ value: Data, as item: KeychainItem) throws {
+    public func save(_ value: Data?, as item: KeychainItem) throws {
         values[item] = value
     }
     

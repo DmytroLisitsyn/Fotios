@@ -32,17 +32,21 @@ public final class AppleKeychain: Keychain {
         self.account = account
     }
     
-    public func save(_ value: Data, as item: KeychainItem) throws {
-        let tag = makeTag(from: item, account: account)
-        let query: [String: Any] = [kSecClass as String: kSecClassKey,
-                                    kSecAttrAccessible as String: item.accessModifier,
-                                    kSecAttrApplicationTag as String: tag,
-                                    kSecValueData as String: value]
-        
-        let status = SecItemAdd(query as CFDictionary, nil)
-        
-        guard status == errSecSuccess else {
-            throw KeychainError(status: status)
+    public func save(_ value: Data?, as item: KeychainItem) throws {
+        if let value = value {
+            let tag = makeTag(from: item, account: account)
+            let query: [String: Any] = [kSecClass as String: kSecClassKey,
+                                        kSecAttrAccessible as String: item.accessModifier,
+                                        kSecAttrApplicationTag as String: tag,
+                                        kSecValueData as String: value]
+            
+            let status = SecItemAdd(query as CFDictionary, nil)
+            
+            guard status == errSecSuccess else {
+                throw KeychainError(status: status)
+            }
+        } else {
+            try delete(item)
         }
     }
     
