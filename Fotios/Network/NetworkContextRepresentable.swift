@@ -28,7 +28,7 @@ public protocol NetworkContextRepresentable {
     
     var apiURL: URL { get }
     
-    func headerFields() -> [String: String]
+    func headerFields(networkBody: Data?) -> [String: String]
     
 }
 
@@ -50,7 +50,7 @@ extension NetworkContextRepresentable {
         return components.url!
     }
     
-    public func headerFields() -> [String: String] {
+    public func headerFields(networkBody: Data?) -> [String: String] {
         let header: [String: String] = [:]
         return header
     }
