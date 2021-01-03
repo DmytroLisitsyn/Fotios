@@ -23,41 +23,27 @@
 //
 
 import Foundation
-import RealmSwift
+import CoreData
 
 // MARK: StorageRequest
 
 public protocol AnyStorageRequest {
     
-    func storageFilters() -> [NSPredicate]
-    func storagePagination() -> (page: Int, entitiesPerPage: Int)?
+    func storageRequest() -> NSFetchRequest<NSFetchRequestResult>
 
 }
-
-extension AnyStorageRequest {
-    
-    public func storageFilters() -> [NSPredicate] {
-        return []
-    }
-    
-    public func storagePagination() -> (page: Int, entitiesPerPage: Int)? {
-        return nil
-    }
-    
-}
-
 
 public protocol StorageRequest: AnyStorageRequest {
     
     associatedtype Storable: Fotios.Storable
-    
+        
 }
 
 // MARK: Storable
 
 public protocol Storable {
     
-    associatedtype StoredObject: RealmSwift.Object
+    associatedtype StoredObject: NSManagedObject
     
     init(storedObject: StoredObject) throws
 
@@ -69,11 +55,21 @@ public protocol Storable {
 extension Storable {
 
     @discardableResult
-    public func storedObject(in realm: Realm) throws -> StoredObject {
-        let storedObject = realm.create(StoredObject.self)
+    public func storedObject(in context: NSManagedObjectContext) throws -> StoredObject {
+        let storedObject = StoredObject(context: context)
         return try self.storedObject(byUpdating: storedObject)
     }
     
+    @discardableResult
+    public func storedObject(in context: NSManagedObjectContext?) throws -> StoredObject? {
+        guard let context = context else {
+            return nil
+        }
+        
+        let storedObject = StoredObject(context: context)
+        return try self.storedObject(byUpdating: storedObject)
+    }
+
 }
 
 // MARK: StoredObjectPrimaryKey
