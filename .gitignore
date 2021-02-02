@@ -29,5 +29,5 @@ timeline.xctimeline
 playground.xcworkspace
 
 .build/
-Carthage/
+.swiftpm/
 
