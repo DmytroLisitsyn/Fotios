@@ -59,15 +59,22 @@ extension DeviceOutputLogger: Logger {
     
     public func log(_ event: LoggerEvent) {
         DispatchQueue.main.async {
-            if self.logString.count > 50000 {
-                self.logString = ""
-            }
+            let shouldDeleteOldest = self.logString.count > 10000
             
             let timeString = self.dateFormatter.string(from: Date())
             let message = self.makeMessage(describing: event)
-            
             let prefix = self.logString.isEmpty ? "" : "\n"
-            self.logString += "\(prefix)\(timeString): \(message)"
+            let line = "\(prefix)\(timeString): \(message)"
+            
+            if shouldDeleteOldest {
+                if self.logString.count > line.count {
+                    self.logString.removeFirst(line.count)
+                } else {
+                    self.logString.removeAll()
+                }
+            }
+            
+            self.logString += line
             
             self.delegate?.logDidChange(in: self)
         }

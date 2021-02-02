@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,8 +17,8 @@
 		CDB5F7D5233E83FE00C9C834 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDB5F7D3233E83FE00C9C834 /* Main.storyboard */; };
 		CDB5F7D7233E83FF00C9C834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CDB5F7D6233E83FF00C9C834 /* Assets.xcassets */; };
 		CDB5F7EA233E842C00C9C834 /* Fotios.h in Headers */ = {isa = PBXBuildFile; fileRef = CDB5F7E8233E842C00C9C834 /* Fotios.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CDB5F7ED233E842C00C9C834 /* Fotios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; };
-		CDB5F7EE233E842C00C9C834 /* Fotios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CDB5F7ED233E842C00C9C834 /* Fotios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; platformFilter = ios; };
+		CDB5F7EE233E842C00C9C834 /* Fotios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CDB5F803233E865500C9C834 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F802233E865500C9C834 /* Network.swift */; };
 		CDB5F80C233E88B800C9C834 /* ListAndResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80B233E88B800C9C834 /* ListAndResults.swift */; };
 		CDB5F80E233E896C00C9C834 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F80D233E896C00C9C834 /* NetworkSession.swift */; };
@@ -49,13 +49,6 @@
 			remoteGlobalIDString = CDB5F7E5233E842C00C9C834;
 			remoteInfo = Fotios;
 		};
-		CDB5F7FD233E857700C9C834 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CDB5F7C2233E83FE00C9C834 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = CDB5F7C9233E83FE00C9C834;
-			remoteInfo = FotiosDemo;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +70,7 @@
 		CD3C7375237C41A200FBDBF3 /* LoggerBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerBundle.swift; sourceTree = "<group>"; };
 		CD3C7377237C421E00FBDBF3 /* DeviceOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOutputLogger.swift; sourceTree = "<group>"; };
 		CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOutputLogger.swift; sourceTree = "<group>"; };
+		CD3ECE7325C91E2B003C5E9B /* FotiosDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FotiosDemo.entitlements; sourceTree = "<group>"; };
 		CD9D0B5923463E0A00AE2B43 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		CDB2780D23F6E82600FF9838 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		CDB2780E23F6E82600FF9838 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -89,8 +83,6 @@
 		CDB5F7E6233E842C00C9C834 /* Fotios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Fotios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB5F7E8233E842C00C9C834 /* Fotios.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fotios.h; sourceTree = "<group>"; };
 		CDB5F7E9233E842C00C9C834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CDB5F7F8233E857700C9C834 /* FotiosDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FotiosDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDB5F7FC233E857700C9C834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CDB5F802233E865500C9C834 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CDB5F80B233E88B800C9C834 /* ListAndResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndResults.swift; sourceTree = "<group>"; };
 		CDB5F80D233E896C00C9C834 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
@@ -123,13 +115,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CDB5F7E3233E842C00C9C834 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDB5F7F5233E857700C9C834 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -174,7 +159,6 @@
 			children = (
 				CDB5F7E7233E842C00C9C834 /* Fotios */,
 				CDB5F7CC233E83FE00C9C834 /* FotiosDemo */,
-				CDB5F7F9233E857700C9C834 /* FotiosDemoTests */,
 				CDB5F7CB233E83FE00C9C834 /* Products */,
 				CDB2780C23F6E82600FF9838 /* Frameworks */,
 			);
@@ -185,7 +169,6 @@
 			children = (
 				CDB5F7CA233E83FE00C9C834 /* FotiosDemo.app */,
 				CDB5F7E6233E842C00C9C834 /* Fotios.framework */,
-				CDB5F7F8233E857700C9C834 /* FotiosDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +176,7 @@
 		CDB5F7CC233E83FE00C9C834 /* FotiosDemo */ = {
 			isa = PBXGroup;
 			children = (
+				CD3ECE7325C91E2B003C5E9B /* FotiosDemo.entitlements */,
 				CDDC06A123421ED800715827 /* Screens & Routing */,
 				CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */,
 				CDB5F7D3233E83FE00C9C834 /* Main.storyboard */,
@@ -213,7 +197,8 @@
 				CDB5F7E8233E842C00C9C834 /* Fotios.h */,
 				CDB5F7E9233E842C00C9C834 /* Info.plist */,
 			);
-			path = Fotios;
+			name = Fotios;
+			path = Sources/Fotios;
 			sourceTree = "<group>";
 		};
 		CDB5F7F3233E848A00C9C834 /* Network */ = {
@@ -228,14 +213,6 @@
 				CDB6149E2346797800D3C093 /* EmptyNetworkResponse.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		CDB5F7F9233E857700C9C834 /* FotiosDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				CDB5F7FC233E857700C9C834 /* Info.plist */,
-			);
-			path = FotiosDemoTests;
 			sourceTree = "<group>";
 		};
 		CDB5F80A233E88A400C9C834 /* Core */ = {
@@ -322,24 +299,6 @@
 			productReference = CDB5F7E6233E842C00C9C834 /* Fotios.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		CDB5F7F7233E857700C9C834 /* FotiosDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CDB5F7FF233E857700C9C834 /* Build configuration list for PBXNativeTarget "FotiosDemoTests" */;
-			buildPhases = (
-				CDB5F7F4233E857700C9C834 /* Sources */,
-				CDB5F7F5233E857700C9C834 /* Frameworks */,
-				CDB5F7F6233E857700C9C834 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CDB5F7FE233E857700C9C834 /* PBXTargetDependency */,
-			);
-			name = FotiosDemoTests;
-			productName = FotiosDemoTests;
-			productReference = CDB5F7F8233E857700C9C834 /* FotiosDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -356,10 +315,6 @@
 					CDB5F7E5233E842C00C9C834 = {
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1100;
-					};
-					CDB5F7F7233E857700C9C834 = {
-						CreatedOnToolsVersion = 11.0;
-						TestTargetID = CDB5F7C9233E83FE00C9C834;
 					};
 				};
 			};
@@ -378,7 +333,6 @@
 			targets = (
 				CDB5F7E5233E842C00C9C834 /* Fotios */,
 				CDB5F7C9233E83FE00C9C834 /* FotiosDemo */,
-				CDB5F7F7233E857700C9C834 /* FotiosDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -394,13 +348,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		CDB5F7E4233E842C00C9C834 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDB5F7F6233E857700C9C834 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -451,25 +398,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		CDB5F7F4233E857700C9C834 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		CDB5F7EC233E842C00C9C834 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = CDB5F7E5233E842C00C9C834 /* Fotios */;
 			targetProxy = CDB5F7EB233E842C00C9C834 /* PBXContainerItemProxy */;
-		};
-		CDB5F7FE233E857700C9C834 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = CDB5F7C9233E83FE00C9C834 /* FotiosDemo */;
-			targetProxy = CDB5F7FD233E857700C9C834 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -606,20 +542,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FotiosDemo/FotiosDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VK8C6Y4535;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = FotiosDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -630,20 +565,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FotiosDemo/FotiosDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VK8C6Y4535;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = FotiosDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -654,28 +588,26 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = VK8C6Y4535;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Fotios/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Fotios/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.Fotios;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -689,74 +621,30 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = VK8C6Y4535;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = Fotios/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Fotios/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.Fotios;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		CDB5F800233E857700C9C834 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VK8C6Y4535;
-				INFOPLIST_FILE = FotiosDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FotiosDemo.app/FotiosDemo";
-			};
-			name = Debug;
-		};
-		CDB5F801233E857700C9C834 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VK8C6Y4535;
-				INFOPLIST_FILE = FotiosDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FotiosDemo.app/FotiosDemo";
 			};
 			name = Release;
 		};
@@ -786,15 +674,6 @@
 			buildConfigurations = (
 				CDB5F7F0233E842C00C9C834 /* Debug */,
 				CDB5F7F1233E842C00C9C834 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		CDB5F7FF233E857700C9C834 /* Build configuration list for PBXNativeTarget "FotiosDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CDB5F800233E857700C9C834 /* Debug */,
-				CDB5F801233E857700C9C834 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

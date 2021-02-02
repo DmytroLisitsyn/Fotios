@@ -39,15 +39,7 @@ extension URLSession: NetworkSession {
     
     @discardableResult
     public func send(_ request: URLRequest, completionHandler: @escaping (NetworkSessionResponse) -> Void) -> NetworkTask {
-        DispatchQueue.main.async {
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        }
-        
         let task = dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            }
-            
             completionHandler((data, response, error))
         }
         
