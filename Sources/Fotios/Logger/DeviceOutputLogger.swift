@@ -31,25 +31,42 @@ public protocol DeviceOutputLoggerDelegate: AnyObject {
 public final class DeviceOutputLogger {
     
     public weak var delegate: DeviceOutputLoggerDelegate?
+
+    public private(set) var logString = "" {
+        didSet { didSetLogString(logString) }
+    }
     
-    public private(set) var logString = ""
-    
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
+    public var logStringCountLimit = 10000
+
+    private let dateFormatter = DateFormatter()
+    private let fileURL: URL?
+    private let queue = DispatchQueue(label: "DeviceOutputLogger")
+
+    public init(filename: String = "device_output_log.txt") {
         dateFormatter.dateFormat = "HH:mm:ss.SSS"
+
+        let fileManager = FileManager.default
         
-        return dateFormatter
-    }()
-    
-    public init() {
+        fileURL = try? fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(filename)
         
+        if let fileURL = fileURL {
+            logString = (try? String(contentsOf: fileURL, encoding: .utf8)) ?? ""
+        }
     }
     
     public func clear() {
-        DispatchQueue.main.async {
+        queue.sync {
             self.logString = ""
-            
-            self.delegate?.logDidChange(in: self)
+
+            DispatchQueue.main.async {
+                self.delegate?.logDidChange(in: self)
+            }
+        }
+    }
+
+    private func didSetLogString(_ logString: String) {
+        if let fileURL = fileURL {
+            try? logString.write(to: fileURL, atomically: true, encoding: .utf8)
         }
     }
     
@@ -58,8 +75,8 @@ public final class DeviceOutputLogger {
 extension DeviceOutputLogger: Logger {
     
     public func log(_ event: LoggerEvent) {
-        DispatchQueue.main.async {
-            let shouldDeleteOldest = self.logString.count > 10000
+        queue.sync {
+            let shouldDeleteOldest = self.logString.count > logStringCountLimit
             
             let timeString = self.dateFormatter.string(from: Date())
             let message = self.makeMessage(describing: event)
@@ -75,8 +92,10 @@ extension DeviceOutputLogger: Logger {
             }
             
             self.logString += line
-            
-            self.delegate?.logDidChange(in: self)
+
+            DispatchQueue.main.async {
+                self.delegate?.logDidChange(in: self)
+            }
         }
     }
     

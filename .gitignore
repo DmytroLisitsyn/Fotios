@@ -30,4 +30,5 @@ playground.xcworkspace
 
 .build/
 .swiftpm/
+.idea/
 
