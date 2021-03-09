@@ -40,21 +40,24 @@ public enum LoggerEvent {
 public protocol Logger: AnyObject {
     
     func log(_ event: LoggerEvent)
+    func log(_ message: String)
     
 }
 
 extension Logger {
     
+    public func log(_ event: LoggerEvent) {
+        log(makeMessage(describing: event))
+    }
+    
     func makeMessage(describing event: LoggerEvent) -> String {
-        let prefix = "➤ "
-        
         switch event {
         case .info(let message):
-            return "\(prefix)ℹ️ \(message)"
+            return "ℹ️ \(message)"
         case .event(let message):
-            return "\(prefix)✴️ \(message)"
+            return "✴️ \(message)"
         case .success(let message):
-            return "\(prefix)✅ \(message)"
+            return "✅ \(message)"
         case .failure(let source, let error):
             var source = source
             
@@ -70,7 +73,7 @@ extension Logger {
                 errorString = localizedError.errorDescription ?? localizedError.localizedDescription
             }
             
-            return "\(prefix)🛑 Error when \(source): \(errorString)"
+            return "🛑 Error when \(source): \(errorString)"
         }
     }
     

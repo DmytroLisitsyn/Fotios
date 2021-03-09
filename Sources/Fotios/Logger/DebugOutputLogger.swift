@@ -34,8 +34,8 @@ public final class DebugOutputLogger {
 
 extension DebugOutputLogger: Logger {
     
-    public func log(_ event: LoggerEvent) {
-        print(makeMessage(describing: event))
+    public func log(_ message: String) {
+        print("➤ \(message)")
     }
     
 }

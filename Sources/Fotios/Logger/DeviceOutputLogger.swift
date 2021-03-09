@@ -74,14 +74,13 @@ public final class DeviceOutputLogger {
 
 extension DeviceOutputLogger: Logger {
     
-    public func log(_ event: LoggerEvent) {
+    public func log(_ message: String) {
         queue.sync {
             let shouldDeleteOldest = self.logString.count > logStringCountLimit
             
             let timeString = self.dateFormatter.string(from: Date())
-            let message = self.makeMessage(describing: event)
             let prefix = self.logString.isEmpty ? "" : "\n"
-            let line = "\(prefix)\(timeString): \(message)"
+            let line = "\(prefix)[\(timeString)] \(message)"
             
             if shouldDeleteOldest {
                 if self.logString.count > line.count {
