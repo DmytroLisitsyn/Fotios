@@ -39,8 +39,8 @@ public final class LoggerBundle {
 
 extension LoggerBundle: Logger {
     
-    public func log(_ event: LoggerEvent) {
-        items.forEach { $0.log(event) }
+    public func log(_ message: String) {
+        items.forEach { $0.log(message) }
     }
     
 }
