@@ -11,6 +11,14 @@
 		CD3C7376237C41A200FBDBF3 /* LoggerBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7375237C41A200FBDBF3 /* LoggerBundle.swift */; };
 		CD3C7378237C421E00FBDBF3 /* DeviceOutputLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7377237C421E00FBDBF3 /* DeviceOutputLogger.swift */; };
 		CD3C737A237C423B00FBDBF3 /* DebugOutputLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */; };
+		CD9992AE27B89A6000DE67A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD9992AD27B89A6000DE67A3 /* Assets.xcassets */; };
+		CD9992B427B89A6100DE67A3 /* Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CD9992B327B89A6100DE67A3 /* Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CD9992B927B89A6100DE67A3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9992B827B89A6100DE67A3 /* ContentView.swift */; };
+		CD9992BB27B89A6100DE67A3 /* FotiosDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9992BA27B89A6100DE67A3 /* FotiosDemoApp.swift */; };
+		CD9992BF27B89A6200DE67A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD9992BE27B89A6200DE67A3 /* Assets.xcassets */; };
+		CD9992C627B89A6200DE67A3 /* Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CD9992AB27B89A5F00DE67A3 /* Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CD9992CF27B89A9100DE67A3 /* Fotios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; };
+		CD9992D027B89A9100DE67A3 /* Fotios.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CDB5F7E6233E842C00C9C834 /* Fotios.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CD9D0B5A23463E0A00AE2B43 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D0B5923463E0A00AE2B43 /* Keychain.swift */; };
 		CDB5F7CE233E83FE00C9C834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */; };
 		CDB5F7D2233E83FE00C9C834 /* InitialVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB5F7D1233E83FE00C9C834 /* InitialVC.swift */; };
@@ -42,6 +50,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CD9992B527B89A6100DE67A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDB5F7C2233E83FE00C9C834 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD9992B227B89A6100DE67A3;
+			remoteInfo = "Watch WatchKit Extension";
+		};
+		CD9992C427B89A6200DE67A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDB5F7C2233E83FE00C9C834 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD9992AA27B89A5F00DE67A3;
+			remoteInfo = Watch;
+		};
+		CD9992D127B89A9100DE67A3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDB5F7C2233E83FE00C9C834 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CDB5F7E5233E842C00C9C834;
+			remoteInfo = Fotios;
+		};
 		CDB5F7EB233E842C00C9C834 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CDB5F7C2233E83FE00C9C834 /* Project object */;
@@ -52,6 +81,39 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		CD9992CA27B89A6200DE67A3 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CD9992B427B89A6100DE67A3 /* Watch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD9992CE27B89A6200DE67A3 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				CD9992C627B89A6200DE67A3 /* Watch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD9992D327B89A9100DE67A3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CD9992D027B89A9100DE67A3 /* Fotios.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CDB5F7F2233E842C00C9C834 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -71,9 +133,14 @@
 		CD3C7377237C421E00FBDBF3 /* DeviceOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOutputLogger.swift; sourceTree = "<group>"; };
 		CD3C7379237C423B00FBDBF3 /* DebugOutputLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOutputLogger.swift; sourceTree = "<group>"; };
 		CD3ECE7325C91E2B003C5E9B /* FotiosDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FotiosDemo.entitlements; sourceTree = "<group>"; };
+		CD9992AB27B89A5F00DE67A3 /* Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD9992AD27B89A6000DE67A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD9992B327B89A6100DE67A3 /* Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD9992B827B89A6100DE67A3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD9992BA27B89A6100DE67A3 /* FotiosDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FotiosDemoApp.swift; sourceTree = "<group>"; };
+		CD9992BE27B89A6200DE67A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD9992C327B89A6200DE67A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD9D0B5923463E0A00AE2B43 /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
-		CDB2780D23F6E82600FF9838 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
-		CDB2780E23F6E82600FF9838 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		CDB5F7CA233E83FE00C9C834 /* FotiosDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FotiosDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDB5F7CD233E83FE00C9C834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDB5F7D1233E83FE00C9C834 /* InitialVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialVC.swift; sourceTree = "<group>"; };
@@ -106,6 +173,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CD9992B027B89A6100DE67A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD9992CF27B89A9100DE67A3 /* Fotios.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CDB5F7C7233E83FE00C9C834 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,6 +210,25 @@
 			path = Logger;
 			sourceTree = "<group>";
 		};
+		CD9992AC27B89A5F00DE67A3 /* Watch */ = {
+			isa = PBXGroup;
+			children = (
+				CD9992AD27B89A6000DE67A3 /* Assets.xcassets */,
+			);
+			path = Watch;
+			sourceTree = "<group>";
+		};
+		CD9992B727B89A6100DE67A3 /* Watch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CD9992BA27B89A6100DE67A3 /* FotiosDemoApp.swift */,
+				CD9992B827B89A6100DE67A3 /* ContentView.swift */,
+				CD9992BE27B89A6200DE67A3 /* Assets.xcassets */,
+				CD9992C327B89A6200DE67A3 /* Info.plist */,
+			);
+			path = "Watch Extension";
+			sourceTree = "<group>";
+		};
 		CD9D0B58234637B400AE2B43 /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,22 +239,14 @@
 			path = Keychain;
 			sourceTree = "<group>";
 		};
-		CDB2780C23F6E82600FF9838 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CDB2780D23F6E82600FF9838 /* Realm.framework */,
-				CDB2780E23F6E82600FF9838 /* RealmSwift.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CDB5F7C1233E83FE00C9C834 = {
 			isa = PBXGroup;
 			children = (
 				CDB5F7E7233E842C00C9C834 /* Fotios */,
 				CDB5F7CC233E83FE00C9C834 /* FotiosDemo */,
+				CD9992AC27B89A5F00DE67A3 /* Watch */,
+				CD9992B727B89A6100DE67A3 /* Watch Extension */,
 				CDB5F7CB233E83FE00C9C834 /* Products */,
-				CDB2780C23F6E82600FF9838 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,6 +255,8 @@
 			children = (
 				CDB5F7CA233E83FE00C9C834 /* FotiosDemo.app */,
 				CDB5F7E6233E842C00C9C834 /* Fotios.framework */,
+				CD9992AB27B89A5F00DE67A3 /* Watch.app */,
+				CD9992B327B89A6100DE67A3 /* Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -262,6 +350,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		CD9992AA27B89A5F00DE67A3 /* Watch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD9992CB27B89A6200DE67A3 /* Build configuration list for PBXNativeTarget "Watch" */;
+			buildPhases = (
+				CD9992A927B89A5F00DE67A3 /* Resources */,
+				CD9992CA27B89A6200DE67A3 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD9992B627B89A6100DE67A3 /* PBXTargetDependency */,
+			);
+			name = Watch;
+			productName = Watch;
+			productReference = CD9992AB27B89A5F00DE67A3 /* Watch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		CD9992B227B89A6100DE67A3 /* Watch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD9992C727B89A6200DE67A3 /* Build configuration list for PBXNativeTarget "Watch Extension" */;
+			buildPhases = (
+				CD9992AF27B89A6100DE67A3 /* Sources */,
+				CD9992B027B89A6100DE67A3 /* Frameworks */,
+				CD9992B127B89A6100DE67A3 /* Resources */,
+				CD9992D327B89A9100DE67A3 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD9992D227B89A9100DE67A3 /* PBXTargetDependency */,
+			);
+			name = "Watch Extension";
+			productName = "Watch WatchKit Extension";
+			productReference = CD9992B327B89A6100DE67A3 /* Watch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		CDB5F7C9233E83FE00C9C834 /* FotiosDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CDB5F7DE233E83FF00C9C834 /* Build configuration list for PBXNativeTarget "FotiosDemo" */;
@@ -270,11 +394,13 @@
 				CDB5F7C7233E83FE00C9C834 /* Frameworks */,
 				CDB5F7C8233E83FE00C9C834 /* Resources */,
 				CDB5F7F2233E842C00C9C834 /* Embed Frameworks */,
+				CD9992CE27B89A6200DE67A3 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				CDB5F7EC233E842C00C9C834 /* PBXTargetDependency */,
+				CD9992C527B89A6200DE67A3 /* PBXTargetDependency */,
 			);
 			name = FotiosDemo;
 			productName = FotiosDemo;
@@ -305,10 +431,16 @@
 		CDB5F7C2233E83FE00C9C834 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Dmytro Lisitsyn";
 				TargetAttributes = {
+					CD9992AA27B89A5F00DE67A3 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					CD9992B227B89A6100DE67A3 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					CDB5F7C9233E83FE00C9C834 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -333,11 +465,29 @@
 			targets = (
 				CDB5F7E5233E842C00C9C834 /* Fotios */,
 				CDB5F7C9233E83FE00C9C834 /* FotiosDemo */,
+				CD9992AA27B89A5F00DE67A3 /* Watch */,
+				CD9992B227B89A6100DE67A3 /* Watch Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CD9992A927B89A5F00DE67A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD9992AE27B89A6000DE67A3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD9992B127B89A6100DE67A3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD9992BF27B89A6200DE67A3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CDB5F7C8233E83FE00C9C834 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -357,6 +507,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CD9992AF27B89A6100DE67A3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD9992BB27B89A6100DE67A3 /* FotiosDemoApp.swift in Sources */,
+				CD9992B927B89A6100DE67A3 /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CDB5F7C6233E83FE00C9C834 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -401,6 +560,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CD9992B627B89A6100DE67A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD9992B227B89A6100DE67A3 /* Watch Extension */;
+			targetProxy = CD9992B527B89A6100DE67A3 /* PBXContainerItemProxy */;
+		};
+		CD9992C527B89A6200DE67A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD9992AA27B89A5F00DE67A3 /* Watch */;
+			targetProxy = CD9992C427B89A6200DE67A3 /* PBXContainerItemProxy */;
+		};
+		CD9992D227B89A9100DE67A3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CDB5F7E5233E842C00C9C834 /* Fotios */;
+			targetProxy = CD9992D127B89A9100DE67A3 /* PBXContainerItemProxy */;
+		};
 		CDB5F7EC233E842C00C9C834 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -421,6 +595,124 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		CD9992C827B89A6200DE67A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = VK8C6Y4535;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Watch Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Watch Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch_Extension.ComplicationController;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Dmytro Lisitsyn. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo.Watch.Extension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Debug;
+		};
+		CD9992C927B89A6200DE67A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = VK8C6Y4535;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Watch Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Watch Extension";
+				INFOPLIST_KEY_CLKComplicationPrincipalClass = Watch_Extension.ComplicationController;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Dmytro Lisitsyn. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo.Watch.Extension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Release;
+		};
+		CD9992CC27B89A6200DE67A3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VK8C6Y4535;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = Watch_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = Watch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.dlisitsyn.FotiosDemo;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo.Watch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Debug;
+		};
+		CD9992CD27B89A6200DE67A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VK8C6Y4535;
+				GENERATE_INFOPLIST_FILE = YES;
+				IBSC_MODULE = Watch_WatchKit_Extension;
+				INFOPLIST_KEY_CFBundleDisplayName = Watch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.dlisitsyn.FotiosDemo;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo.Watch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 8.3;
+			};
+			name = Release;
+		};
 		CDB5F7DC233E83FF00C9C834 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -551,7 +843,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -574,7 +866,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.FotiosDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -586,6 +878,8 @@
 		CDB5F7F0233E842C00C9C834 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -602,15 +896,16 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.Fotios;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,4,6";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -619,6 +914,8 @@
 		CDB5F7F1233E842C00C9C834 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -635,14 +932,15 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dlisitsyn.Fotios;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "watchsimulator watchos macosx iphonesimulator iphoneos driverkit appletvsimulator appletvos";
 				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,4,6";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -651,6 +949,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD9992C727B89A6200DE67A3 /* Build configuration list for PBXNativeTarget "Watch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD9992C827B89A6200DE67A3 /* Debug */,
+				CD9992C927B89A6200DE67A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD9992CB27B89A6200DE67A3 /* Build configuration list for PBXNativeTarget "Watch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD9992CC27B89A6200DE67A3 /* Debug */,
+				CD9992CD27B89A6200DE67A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CDB5F7C5233E83FE00C9C834 /* Build configuration list for PBXProject "FotiosDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
