@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2019 Dmytro Lisitsyn
+//  Copyright (C) 2021 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,18 +20,14 @@
 //  SOFTWARE.
 //
 
-import Foundation
+import Combine
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
-}
+extension Publisher where Failure == Never {
 
-extension URLSession: NetworkSession {
-    
-    public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+    public func safeAssign<T: AnyObject>(to keyPath: ReferenceWritableKeyPath<T, Output>, on owner: T) -> AnyCancellable {
+        return sink(receiveValue: { [weak owner] output in
+            owner?[keyPath: keyPath] = output
+        })
     }
-    
+
 }

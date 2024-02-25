@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2019 Dmytro Lisitsyn
+//  Copyright (C) 2022 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,18 +20,25 @@
 //  SOFTWARE.
 //
 
-import Foundation
+import SwiftUI
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
+extension View {
+
+    public func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+
 }
 
-extension URLSession: NetworkSession {
-    
-    public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+public struct RoundedCorner: Shape {
+
+    public var radius: CGFloat = .infinity
+    public var corners: UIRectCorner = .allCorners
+
+    public func path(in rect: CGRect) -> Path {
+        let cornerRadii = CGSize(width: radius, height: radius)
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: cornerRadii)
+        return Path(path.cgPath)
     }
-    
+
 }

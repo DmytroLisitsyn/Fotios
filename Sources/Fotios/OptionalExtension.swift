@@ -22,16 +22,17 @@
 
 import Foundation
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
-}
+extension Optional {
 
-extension URLSession: NetworkSession {
-    
-    public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+    public func unwrapped<Type>(orMake makingBlock: () -> Type) -> Type {
+        return (self as? Type) ?? makingBlock()
     }
-    
+
+    @discardableResult
+    public mutating func unwrap<Type>(orMake makingBlock: () -> Type) -> Type {
+        let instance = unwrapped(orMake: makingBlock)
+        self = instance as? Wrapped
+        return instance
+    }
+
 }

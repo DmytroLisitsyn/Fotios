@@ -7,18 +7,11 @@ let package = Package(
     name: "Fotios",
     platforms: [.macOS(.v10_15), .iOS(.v13), .watchOS(.v6), .tvOS(.v13)],
     products: [
-        .library(
-            name: "Fotios",
-            targets: ["Fotios"]),
+        .library(name: "Fotios", targets: ["Fotios"]),
     ],
     dependencies: [],
     targets: [
-        .target(
-            name: "Fotios",
-            dependencies: [],
-            exclude: ["Info.plist"]),
-        .testTarget(
-            name: "FotiosTests",
-            dependencies: ["Fotios"]),
+        .target(name: "Fotios", dependencies: []),
+        .testTarget(name: "FotiosTests", dependencies: ["Fotios"])
     ]
 )

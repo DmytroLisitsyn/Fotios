@@ -1,6 +1,4 @@
 //
-//  Fotios
-//
 //  Copyright (C) 2019 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,27 +26,23 @@ public final class MockKeychain: Keychain {
     
     public var values: [KeychainItem: Data]
     
-    public init(account: String, values: [KeychainItem: Data] = [:]) {
+    public init(values: [KeychainItem: Data] = [:]) {
         self.values = values
     }
-        
-    public convenience init(account: String) {
-        self.init(account: account, values: [:])
-    }
     
-    public func save(_ value: Data?, as item: KeychainItem) throws {
+    public func save(_ value: Data?, as item: KeychainItem, account: String?) throws {
         values[item] = value
     }
     
-    public func fetch(_ item: KeychainItem) throws -> Data? {
+    public func fetch(_ item: KeychainItem, account: String?) throws -> Data {
         if let value = values[item] {
             return value
         } else {
-            return nil
+            throw KeychainError.notFound
         }
     }
     
-    public func delete(_ item: KeychainItem) throws {
+    public func delete(_ item: KeychainItem, account: String?) throws {
         values[item] = nil
     }
     

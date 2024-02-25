@@ -1,6 +1,4 @@
 //
-//  Fotios
-//
 //  Copyright (C) 2019 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy

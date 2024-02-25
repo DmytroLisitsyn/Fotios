@@ -1,5 +1,5 @@
 //
-//  Copyright (C) 2019 Dmytro Lisitsyn
+//  Copyright (C) 2022 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +22,23 @@
 
 import Foundation
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
+public protocol JSONNetworkSuccess: NetworkSuccess {
+    init(json: JSON) throws
 }
 
-extension URLSession: NetworkSession {
+extension JSONNetworkSuccess {
     
-    public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+    public init(networkBody: Data) throws {
+        let json = JSON(networkBody)
+        try self.init(json: json)
+    }
+    
+}
+
+extension Array: NetworkSuccess, JSONNetworkSuccess where Element: JSONNetworkSuccess {
+    
+    public init(json: JSON) throws {
+        self = try json.map(Element.init)
     }
     
 }

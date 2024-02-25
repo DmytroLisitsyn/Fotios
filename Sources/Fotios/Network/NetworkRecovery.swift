@@ -22,16 +22,19 @@
 
 import Foundation
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
+public protocol NetworkRecovery {
+    func recover(with request: NetworkRecoveryRequest, network: Network) async throws
 }
 
-extension URLSession: NetworkSession {
+public struct NetworkRecoveryRequest {
     
-    public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+    public var failedRequest: any NetworkRequest
+    public var error: Error
+    public var allowsRecurringRecovery = true
+    
+    init(failedRequest: any NetworkRequest, error: Error) {
+        self.failedRequest = failedRequest
+        self.error = error
     }
     
 }

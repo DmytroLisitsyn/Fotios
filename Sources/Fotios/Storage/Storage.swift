@@ -1,6 +1,4 @@
 //
-//  Fotios
-//
 //  Copyright (C) 2019 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,7 +29,7 @@ public final class Storage {
     private let model: NSManagedObjectModel
     private let persistentContainer: NSPersistentContainer
 
-    public init(account: String = "X-Storage-X", model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
+    public init(account: String = "Storage", model: NSManagedObjectModel, shouldUseInMemoryStorage: Bool = false, persistentStoresLoadingHandler: @escaping ((NSPersistentStoreDescription, Error?) -> Void) = persistentStoresLoadingHandler) {
         self.account = account
         self.model = model
         
@@ -52,11 +50,11 @@ public final class Storage {
         persistentContainer.viewContext.shouldDeleteInaccessibleFaults = true
     }
     
-    public func save<T: Storable>(_ entity: T, completionHandler: Closure<PlainResult>?) {
+    public func save<T: Storable>(_ entity: T, completionHandler: ((Result<Void, Error>) -> Void)?) {
         save([entity], completionHandler: completionHandler)
     }
     
-    public func save<T: Storable>(_ entities: [T], completionHandler: Closure<PlainResult>?) {
+    public func save<T: Storable>(_ entities: [T], completionHandler: ((Result<Void, Error>) -> Void)?) {
         let context = persistentContainer.newBackgroundContext()
         
         context.perform {
@@ -81,7 +79,7 @@ public final class Storage {
         }
     }
 
-    public func fetchFirst<T: StorageRequest>(_ request: T, completionHandler: Closure<TypedResult<T.Storable?>>?) {
+    public func fetchFirst<T: StorageRequest>(_ request: T, completionHandler: ((Result<T.Storable?, Error>) -> Void)?) {
         let context = persistentContainer.newBackgroundContext()
         
         context.perform {
@@ -99,7 +97,7 @@ public final class Storage {
         }
     }
     
-    public func fetch<T: StorageRequest>(_ request: T, completionHandler: Closure<TypedResult<[T.Storable]>>?) {
+    public func fetch<T: StorageRequest>(_ request: T, completionHandler: ((Result<[T.Storable], Error>) -> Void)?) {
         let context = persistentContainer.newBackgroundContext()
         
         context.perform {
@@ -114,7 +112,7 @@ public final class Storage {
         }
     }
 
-    public func delete<T: StorageRequest>(_ request: T, completionHandler: Closure<PlainResult>?) {
+    public func delete<T: StorageRequest>(_ request: T, completionHandler: ((Result<Void, Error>) -> Void)?) {
         let context = persistentContainer.newBackgroundContext()
         
         context.perform {
@@ -134,7 +132,7 @@ public final class Storage {
         }
     }
     
-    public func deleteAll(completionHandler: Closure<PlainResult>?) {
+    public func deleteAll(completionHandler: ((Result<Void, Error>) -> Void)?) {
         let context = persistentContainer.newBackgroundContext()
         
         context.perform {
