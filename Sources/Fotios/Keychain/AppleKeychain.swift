@@ -1,6 +1,4 @@
 //
-//  Fotios
-//
 //  Copyright (C) 2019 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,55 +24,55 @@ import Foundation
 
 public final class AppleKeychain: Keychain {
     
-    public var account: String
+    public init() {
         
-    public init(account: String) {
-        self.account = account
     }
     
-    public func save(_ value: Data?, as item: KeychainItem) throws {
-        if let value = value {
-            let tag = makeTag(from: item, account: account)
-            let query: [String: Any] = [kSecClass as String: kSecClassKey,
-                                        kSecAttrAccessible as String: item.accessModifier,
-                                        kSecAttrApplicationTag as String: tag,
-                                        kSecValueData as String: value]
-            
-            let status = SecItemAdd(query as CFDictionary, nil)
-            
-            guard status == errSecSuccess else {
-                throw KeychainError(status: status)
-            }
-        } else {
-            try delete(item)
+    public func save(_ value: Data?, as item: KeychainItem, account: String?) throws {
+        try delete(item, account: account)
+
+        guard let value = value else { return }
+        
+        let tag = makeTag(from: item, account: account)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecAttrAccessible as String: item.accessModifier,
+            kSecAttrApplicationTag as String: tag,
+            kSecValueData as String: value
+        ]
+        
+        let status = SecItemAdd(query as CFDictionary, nil)
+        
+        guard status == errSecSuccess else {
+            throw KeychainError(status: status)
         }
     }
     
-    public func fetch(_ item: KeychainItem) throws -> Data? {
+    public func fetch(_ item: KeychainItem, account: String?) throws -> Data {
         let tag = makeTag(from: item, account: account)
-        let query: [String: Any] = [kSecClass as String: kSecClassKey,
-                                    kSecMatchLimit as String: kSecMatchLimitOne,
-                                    kSecReturnData as String: true,
-                                    kSecAttrApplicationTag as String: tag]
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecReturnData as String: true,
+            kSecAttrApplicationTag as String: tag
+        ]
         
         var ref: CFTypeRef?
         let status = SecItemCopyMatching(query as CFDictionary, &ref)
-        
-        guard status != errSecItemNotFound else {
-            return nil
-        }
         
         guard status == errSecSuccess else {
             throw KeychainError(status: status)
         }
         
-        return ref as? Data
+        return ref as! Data
     }
     
-    public func delete(_ item: KeychainItem) throws {
+    public func delete(_ item: KeychainItem, account: String?) throws {
         let tag = makeTag(from: item, account: account)
-        let query: [String: Any] = [kSecClass as String: kSecClassKey,
-                                    kSecAttrApplicationTag as String: tag]
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecAttrApplicationTag as String: tag
+        ]
         
         let status = SecItemDelete(query as CFDictionary)
         
@@ -85,14 +83,19 @@ public final class AppleKeychain: Keychain {
             throw KeychainError(status: status)
         }
     }
-        
+    
 }
 
 extension AppleKeychain {
     
-    private func makeTag(from item: KeychainItem, account: String) -> Any {
-        let tag = "\(account).\(item.tag)".data(using: .utf8) as Any
-        return tag
+    private func makeTag(from item: KeychainItem, account: String?) -> Any {
+        if let account = account {
+            let tag = "\(account).\(item.tag)".data(using: .utf8) as Any
+            return tag
+        } else {
+            let tag = "\(item.tag)".data(using: .utf8) as Any
+            return tag
+        }
     }
     
 }

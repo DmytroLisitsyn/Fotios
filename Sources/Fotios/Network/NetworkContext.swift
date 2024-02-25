@@ -22,16 +22,30 @@
 
 import Foundation
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
+public protocol NetworkContext {
+    
+    var url: URL { get }
+ 
+    func headerFields(networkBody: Data?) -> [String: String]
+    
 }
 
-extension URLSession: NetworkSession {
+extension NetworkContext {
     
-    public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+    public func url(path: String, query: [String: String?] = [:]) -> URL {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
+        components.path += path
+        
+        if !query.isEmpty {
+            components.queryItems = []
+            
+            for (name, value) in query {
+                let item = URLQueryItem(name: name, value: value)
+                components.queryItems?.append(item)
+            }
+        }
+        
+        return components.url!
     }
     
 }

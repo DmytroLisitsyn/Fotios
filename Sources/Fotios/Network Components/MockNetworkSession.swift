@@ -22,16 +22,23 @@
 
 import Foundation
 
-public protocol NetworkSession {
-    func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
-}
-
-extension URLSession: NetworkSession {
+public class MockNetworkSession: NetworkSession {
+    
+    public var handler: (URLRequest) throws -> (Data, HTTPURLResponse)
+    
+    public init(handler: @escaping (URLRequest) throws -> (Data, HTTPURLResponse)) {
+        self.handler = handler
+    }
     
     public func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse) {
-        let (data, response) = try await data(for: request)
-        let urlResponse = (response as? HTTPURLResponse) ?? HTTPURLResponse()
-        return (data, urlResponse)
+        try await withCheckedThrowingContinuation { continuation in
+            do {
+                let result = try handler(request)
+                continuation.resume(with: .success(result))
+            } catch {
+                continuation.resume(with: .failure(error))
+            }
+        }
     }
     
 }

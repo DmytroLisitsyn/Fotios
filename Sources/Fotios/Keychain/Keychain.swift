@@ -1,6 +1,4 @@
 //
-//  Fotios
-//
 //  Copyright (C) 2019 Dmytro Lisitsyn
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,31 +22,22 @@
 
 import Foundation
 
-// MARK: Keychain
-
 public protocol Keychain {
-    
-    init(account: String)
-    
-    func save(_ value: Data?, as item: KeychainItem) throws
-    func fetch(_ item: KeychainItem) throws -> Data?
-    func delete(_ item: KeychainItem) throws
-    
+    func save(_ value: Data?, as item: KeychainItem, account: String?) throws
+    func fetch(_ item: KeychainItem, account: String?) throws -> Data
+    func delete(_ item: KeychainItem, account: String?) throws
 }
 
 extension Keychain {
     
-    public func save(_ value: String?, as item: KeychainItem) throws {
-        let data = value?.data(using: .utf8, allowLossyConversion: true)
-        try save(data, as: item)
+    public func save(_ value: String?, as item: KeychainItem, account: String?) throws {
+        let data = value?.data(using: .utf8)
+        try save(data, as: item, account: account)
     }
     
-    public func fetch(_ item: KeychainItem) throws -> String? {
-        guard let data = try fetch(item) as Data? else {
-            return nil
-        }
-        
-        return String(data: data, encoding: .utf8)
+    public func fetch(_ item: KeychainItem, account: String?) throws -> String {
+        let data = try fetch(item, account: account) as Data
+        return String(data: data, encoding: .utf8) ?? ""
     }
     
 }
@@ -73,12 +62,20 @@ public struct KeychainItem: Hashable {
 
 // MARK: KeychainError
 
-public struct KeychainError: Error {
+public struct KeychainError: Error, Equatable, Hashable {
     
     public var status: OSStatus
     
     public init(status: OSStatus) {
         self.status = status
+    }
+    
+}
+
+extension KeychainError {
+    
+    static var notFound: KeychainError {
+        return .init(status: errSecItemNotFound)
     }
     
 }
