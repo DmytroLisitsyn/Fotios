@@ -25,13 +25,13 @@ import Foundation
 public protocol TransitionIdentifiable {
     associatedtype TransitionIdentifier
 
-    func performTransition(_ identifier: TransitionIdentifier, completionHandler: (() -> Void)?)
+    func performTransition(_ identifier: TransitionIdentifier, animated: Bool, completionHandler: (() -> Void)?)
 }
 
 extension TransitionIdentifiable {
 
-    public func performTransition(_ identifier: TransitionIdentifier) {
-        performTransition(identifier, completionHandler: nil)
+    public func performTransition(_ identifier: TransitionIdentifier, animated: Bool = true) {
+        performTransition(identifier, animated: animated, completionHandler: nil)
     }
 
 }

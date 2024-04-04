@@ -208,11 +208,19 @@ extension CrystalView: UICollectionViewDelegateFlowLayout {
     }
 
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let section = crystalViewDataSource.snapshot().sectionIdentifiers.element(at: section)
+        let snapshot = crystalViewDataSource.snapshot()
+        let sectionIdentifier = snapshot.sectionIdentifiers.element(at: section)
 
-        if let header = section?.header {
+        if let header = sectionIdentifier?.header {
             let layoutType = type(of: header).layoutType
             let layout = layoutType.init(item: header, estimatedSize: collectionView.bounds.size)
+
+            let indexPath = IndexPath(item: 0, section: section)
+            let kind = UICollectionView.elementKindSectionHeader
+            if let view = collectionView.supplementaryView(forElementKind: kind, at: indexPath) as? AnyCrystalReusableView {
+                view.setLayout(layout)
+            }
+
             return layout.boundsSize
         } else {
             return .zero
