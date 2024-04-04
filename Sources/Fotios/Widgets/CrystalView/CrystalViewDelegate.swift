@@ -31,19 +31,19 @@ public protocol CrystalViewDelegate: AnyObject {
 
 extension CrystalViewDelegate {
 
-    func crystalViewDidScroll(_ crystalView: CrystalView) {
+    public func crystalViewDidScroll(_ crystalView: CrystalView) {
 
     }
 
-    func crystalViewWillEndDragging(_ crystalView: CrystalView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    public func crystalViewWillEndDragging(_ crystalView: CrystalView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
 
     }
 
-    func crystalView(_ crystalView: CrystalView, willDisplayItemAt indexPath: IndexPath) {
+    public func crystalView(_ crystalView: CrystalView, willDisplayItemAt indexPath: IndexPath) {
 
     }
 
-    func crystalView(_ crystalView: CrystalView, didSelectItemAt indexPath: IndexPath) {
+    public func crystalView(_ crystalView: CrystalView, didSelectItemAt indexPath: IndexPath) {
 
     }
 
