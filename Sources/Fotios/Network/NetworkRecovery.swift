@@ -23,18 +23,13 @@
 import Foundation
 
 public protocol NetworkRecovery {
-    func recover(with request: NetworkRecoveryRequest, network: Network) async throws
+    func network<T: NetworkRequest>(_ network: Network, willSendRequestIn context: NetworkRecoveryContext<T>) async throws
+    func network<T: NetworkRequest>(_ network: Network, didSendRequestWithSuccess entity: T.NetworkSuccess, in context: NetworkRecoveryContext<T>) async throws
+    func network<T: NetworkRequest>(_ network: Network, didSendRequestWithFailure error: Error, in context: NetworkRecoveryContext<T>) async throws -> T.NetworkSuccess
 }
 
-public struct NetworkRecoveryRequest {
-    
-    public var failedRequest: any NetworkRequest
-    public var error: Error
-    public var allowsRecurringRecovery = true
-    
-    init(failedRequest: any NetworkRequest, error: Error) {
-        self.failedRequest = failedRequest
-        self.error = error
-    }
-    
+public struct NetworkRecoveryContext<Request: NetworkRequest>: Identifiable {
+    public var id: String = UUID().uuidString
+    public var request: Request
+    public var shouldTryToRecover: Bool
 }

@@ -36,7 +36,11 @@ public final class Network {
     
     @discardableResult
     public func send<T: NetworkRequest>(_ request: T, shouldTryToRecover: Bool = true) async throws -> T.NetworkSuccess {
+        let recoveryContext = NetworkRecoveryContext(request: request, shouldTryToRecover: shouldTryToRecover)
+
         do {
+            try await recoverer?.network(self, willSendRequestIn: recoveryContext)
+
             let urlRequest = request.makeURLRequest(in: context)
             let (data, response) = try await session.send(urlRequest)
             
@@ -46,6 +50,8 @@ public final class Network {
             }
             
             let success = try T.NetworkSuccess(networkBody: data)
+            try await recoverer?.network(self, didSendRequestWithSuccess: success, in: recoveryContext)
+
             return success
         } catch {
             guard let recoverer = self.recoverer else {
@@ -53,11 +59,7 @@ public final class Network {
             }
             
             do {
-                var recoveryRequest = NetworkRecoveryRequest(failedRequest: request, error: error)
-                recoveryRequest.allowsRecurringRecovery = shouldTryToRecover
-                try await recoverer.recover(with: recoveryRequest, network: self)
-                
-                let success = try await send(request, shouldTryToRecover: false)
+                let success = try await recoverer.network(self, didSendRequestWithFailure: error, in: recoveryContext)
                 return success
             } catch {
                 throw error
