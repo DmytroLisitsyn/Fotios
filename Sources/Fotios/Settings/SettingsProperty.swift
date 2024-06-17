@@ -21,6 +21,7 @@
 //
 
 import Foundation
+import Combine
 
 public protocol AnySettingsProperty: AnyObject {
     func setUserDefaults(_ userDefaults: UserDefaults?)
@@ -29,23 +30,27 @@ public protocol AnySettingsProperty: AnyObject {
 @propertyWrapper
 public final class SettingsProperty<T: SettingsValue>: AnySettingsProperty {
 
+    public var projectedValue: AnyPublisher<T, Never> {
+        return settingsValueSubject.eraseToAnyPublisher()
+    }
+
     public var wrappedValue: T {
         get {
-            return settingsValue
+            return settingsValueSubject.value
         }
         set {
-            settingsValue = newValue
             newValue.storeSettingsValue(for: key, in: userDefaults)
+            settingsValueSubject.value = newValue
         }
     }
 
     public let key: String
 
-    private var settingsValue: T
+    private var settingsValueSubject: CurrentValueSubject<T, Never>
     private var userDefaults: UserDefaults?
 
     public init(wrappedValue: T, key: String) {
-        self.settingsValue = wrappedValue
+        self.settingsValueSubject = .init(wrappedValue)
         self.key = key
     }
 
@@ -53,7 +58,7 @@ public final class SettingsProperty<T: SettingsValue>: AnySettingsProperty {
         self.userDefaults = userDefaults
 
         if let value = T.fetchSettingsValue(for: key, from: userDefaults), !value.isSettingsValueNil {
-            settingsValue = value
+            settingsValueSubject.value = value
         }
     }
 

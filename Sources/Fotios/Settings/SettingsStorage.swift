@@ -22,13 +22,13 @@
 
 import Foundation
 
-public protocol SettingsStorage {
-    func setupSettingsStorage(userDefaults: UserDefaults?)
+public protocol SettingsPropertyContainable {
+    func setupSettingsProperties(userDefaults: UserDefaults?)
 }
 
-extension SettingsStorage {
+extension SettingsPropertyContainable {
 
-    public func setupSettingsStorage(userDefaults: UserDefaults?) {
+    public func setupSettingsProperties(userDefaults: UserDefaults?) {
         for child in Mirror(reflecting: self).children {
             if let property = child.value as? AnySettingsProperty {
                 property.setUserDefaults(userDefaults)
