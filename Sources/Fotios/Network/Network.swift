@@ -41,15 +41,7 @@ public final class Network {
         do {
             try await recoverer?.network(self, willSendRequestIn: recoveryContext)
 
-            let urlRequest = request.makeURLRequest(in: context)
-            let (data, response) = try await session.send(urlRequest)
-            
-            guard response.statusCode < 400 else {
-                let error = try T.NetworkFailure(networkBody: data, statusCode: response.statusCode)
-                throw error as Error
-            }
-            
-            let success = try T.NetworkSuccess(networkBody: data)
+            let success = try await session.send(request, in: context)
             try await recoverer?.network(self, didSendRequestWithSuccess: success, in: recoveryContext)
 
             return success
