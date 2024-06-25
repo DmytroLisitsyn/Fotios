@@ -24,7 +24,27 @@ import Foundation
 
 public protocol NetworkSession {
     func send(_ request: URLRequest) async throws -> (Data, HTTPURLResponse)
+    func send<T: NetworkRequest>(_ request: T, in context: NetworkContext) async throws -> T.NetworkSuccess
 }
+
+extension NetworkSession {
+
+    public func send<T: NetworkRequest>(_ request: T, in context: NetworkContext) async throws -> T.NetworkSuccess {
+        let urlRequest = request.makeURLRequest(in: context)
+        let (data, response) = try await send(urlRequest)
+
+        guard response.statusCode < 400 else {
+            let error = try T.NetworkFailure(networkBody: data, statusCode: response.statusCode)
+            throw error as Error
+        }
+
+        let success = try T.NetworkSuccess(networkBody: data)
+        return success
+    }
+
+}
+
+// - MARK: URLSession
 
 extension URLSession: NetworkSession {
     
