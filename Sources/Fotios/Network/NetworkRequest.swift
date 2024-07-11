@@ -58,7 +58,7 @@ public struct AnyNetworkRequest {
     public var method: Method = .get
     public var overrideURL: URL?
     public var urlPath = ""
-    public var urlQuery: [String: String?] = [:]
+    public var urlQuery: [(name: String, value: String?)] = []
     public var overrideHeaderFields: [String: String]?
     public var headerFields: [String: String] = [:]
     public var body: Data?

@@ -32,12 +32,12 @@ public protocol NetworkContext {
 
 extension NetworkContext {
     
-    public func url(path: String, query: [String: String?] = [:]) -> URL {
+    public func url(path: String, query: [(name: String, value: String?)]) -> URL {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: true)!
         components.path += path
         
         if !query.isEmpty {
-            components.queryItems = []
+            components.queryItems = components.queryItems ?? []
             
             for (name, value) in query {
                 let item = URLQueryItem(name: name, value: value)
