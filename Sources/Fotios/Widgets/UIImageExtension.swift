@@ -62,32 +62,24 @@ extension UIImage {
         
         return mergedImage
     }
-    
-    public func resized(_ smallerSideSize: CGFloat) -> UIImage {
+
+    public func scaledAspectFit(boundsSize: CGSize) -> UIImage? {
         let originalSize = self.size
-        
-        guard originalSize.width > smallerSideSize && originalSize.height > smallerSideSize else {
-            return self
-        }
-        
-        let widthRatio = smallerSideSize / originalSize.width
-        let heightRatio = smallerSideSize / originalSize.height
 
-        var newSize: CGSize
-        if widthRatio < heightRatio {
-            newSize = CGSize(width: originalSize.width * heightRatio, height: originalSize.height * heightRatio)
-        } else {
-            newSize = CGSize(width: originalSize.width * widthRatio, height: originalSize.height * widthRatio)
-        }
-        
-        let rect = CGRect(origin: .zero, size: newSize)
+        var resultSize = boundsSize
+        resultSize.height = (boundsSize.width / originalSize.width * originalSize.height).rounded()
 
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        draw(in: rect)
+        if resultSize.height > boundsSize.height {
+            resultSize.width = (boundsSize.height / originalSize.height * originalSize.width).rounded()
+            resultSize.height = boundsSize.height
+        }
+
+        UIGraphicsBeginImageContextWithOptions(resultSize, false, 1.0)
+        self.draw(in: CGRect(origin: .zero, size: resultSize))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
-        return newImage ?? self
+
+        return newImage
     }
-    
+
 }

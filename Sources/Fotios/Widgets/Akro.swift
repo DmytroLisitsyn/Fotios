@@ -61,10 +61,10 @@ public struct Akro {
 
 extension Akro {
     
-    public var bounds: Akro {
+    public var all: Akro {
         return top.bottom.leading.trailing
     }
-    
+
     public var centerX: Akro {
         var akro = self
         akro.layoutAttributes.append(.centerX)
