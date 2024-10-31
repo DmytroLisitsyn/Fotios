@@ -27,17 +27,19 @@ public struct JSON {
     public var raw: Any?
     
     public init(_ raw: Any? = nil) {
-        self.raw = raw
-    }
-
-    public init(jsonData: Data?) {
-        if let jsonData = jsonData, let jsonObject = try? JSONSerialization.jsonObject(with: jsonData) {
+        if let data = raw as? Data, let jsonObject = try? JSONSerialization.jsonObject(with: data) {
             self.raw = jsonObject
+        } else {
+            self.raw = raw
         }
     }
 
-    public init(jsonString: String?) {
-        self.init(jsonData: jsonString?.data(using: .utf8))
+    public static func fromData(_ data: Data?) -> JSON {
+        return JSON(data)
+    }
+
+    public static func fromString(_ string: String?) -> JSON {
+        return fromData(string?.data(using: .utf8))
     }
 
     public subscript(_ key: String) -> JSON {
@@ -132,7 +134,7 @@ extension JSON {
         return try arrayValue.map({ try transform(JSON($0)) })
     }
 
-    public var jsonData: Data? {
+    public func toData() -> Data? {
         if let raw = raw, JSONSerialization.isValidJSONObject(raw) {
             return try? JSONSerialization.data(withJSONObject: raw)
         } else {
@@ -140,8 +142,8 @@ extension JSON {
         }
     }
 
-    public var jsonString: String? {
-        if let data = jsonData, let jsonString = String(data: data, encoding: .utf8) {
+    public func toString() -> String? {
+        if let data = toData(), let jsonString = String(data: data, encoding: .utf8) {
             return jsonString
         } else {
             return nil
@@ -153,17 +155,13 @@ extension JSON {
 extension JSON: CustomStringConvertible {
     
     public var description: String {
-        let string: String
-        
-        if let jsonString = jsonString {
-            string = jsonString
+        if let jsonString = toString() {
+            return jsonString
         } else if let raw = raw as? CustomStringConvertible {
-            string = raw.description
+            return raw.description
         } else {
-            string = raw.debugDescription
+            return "\(raw as Any)"
         }
-        
-        return string
     }
     
 }
