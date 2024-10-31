@@ -24,14 +24,14 @@ import Foundation
 
 public final class Network {
     
-    @Published public var session: NetworkSession
     @Published public var context: NetworkContext
+    @Published public var session: NetworkSession
 
     public var recoverer: NetworkRecovery?
 
-    public init(session: NetworkSession, context: NetworkContext) {
-        self.session = session
+    public init(context: NetworkContext, session: NetworkSession) {
         self.context = context
+        self.session = session
     }
     
     @discardableResult

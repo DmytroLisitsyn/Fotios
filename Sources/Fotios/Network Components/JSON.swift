@@ -23,21 +23,23 @@
 import Foundation
 
 public struct JSON {
-    
+
     public var raw: Any?
     
     public init(_ raw: Any? = nil) {
-        if let data = raw as? Data {
-            if let jsonObject = try? JSONSerialization.jsonObject(with: data) {
-                self.raw = jsonObject
-            } else if let string = String(data: data, encoding: .utf8) {
-                self.raw = string
-            }
-        } else {
-            self.raw = raw
+        self.raw = raw
+    }
+
+    public init(jsonData: Data?) {
+        if let jsonData = jsonData, let jsonObject = try? JSONSerialization.jsonObject(with: jsonData) {
+            self.raw = jsonObject
         }
     }
-    
+
+    public init(jsonString: String?) {
+        self.init(jsonData: jsonString?.data(using: .utf8))
+    }
+
     public subscript(_ key: String) -> JSON {
         get {
             let json = JSON(dictionary?[key])
@@ -118,14 +120,6 @@ extension JSON {
         return array ?? []
     }
     
-    public var data: Data? {
-        if let raw = raw, JSONSerialization.isValidJSONObject(raw) {
-            return try? JSONSerialization.data(withJSONObject: raw)
-        } else {
-            return nil
-        }
-    }
-    
     public func map<T>(_ transform: (JSON) throws -> T) rethrows -> T? {
         if let raw = raw {
             return try transform(JSON(raw))
@@ -137,7 +131,23 @@ extension JSON {
     public func map<T>(_ transform: (JSON) throws -> T) rethrows -> [T] {
         return try arrayValue.map({ try transform(JSON($0)) })
     }
-    
+
+    public var jsonData: Data? {
+        if let raw = raw, JSONSerialization.isValidJSONObject(raw) {
+            return try? JSONSerialization.data(withJSONObject: raw)
+        } else {
+            return nil
+        }
+    }
+
+    public var jsonString: String? {
+        if let data = jsonData, let jsonString = String(data: data, encoding: .utf8) {
+            return jsonString
+        } else {
+            return nil
+        }
+    }
+
 }
 
 extension JSON: CustomStringConvertible {
@@ -145,8 +155,8 @@ extension JSON: CustomStringConvertible {
     public var description: String {
         let string: String
         
-        if let data = data, let description = String(data: data, encoding: .utf8) {
-            string = description
+        if let jsonString = jsonString {
+            string = jsonString
         } else if let raw = raw as? CustomStringConvertible {
             string = raw.description
         } else {
