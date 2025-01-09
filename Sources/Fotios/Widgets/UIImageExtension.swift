@@ -23,9 +23,9 @@
 import UIKit
 
 extension UIImage {
-    
+
     public func filled(with color: UIColor) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
         let context = UIGraphicsGetCurrentContext()
         
         context!.translateBy(x: 0, y: size.height)

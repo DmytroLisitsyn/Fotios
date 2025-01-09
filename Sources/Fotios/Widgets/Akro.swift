@@ -22,6 +22,7 @@
 
 import UIKit
 
+@MainActor
 public struct Akro {
     
     private let rootView: UIView

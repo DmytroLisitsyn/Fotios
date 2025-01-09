@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -11,7 +11,16 @@ let package = Package(
     ],
     dependencies: [],
     targets: [
-        .target(name: "Fotios", dependencies: []),
-        .testTarget(name: "FotiosTests", dependencies: ["Fotios"])
+        .target(
+            name: "Fotios",
+            dependencies: [],
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
+        ),
+        .testTarget(
+            name: "FotiosTests",
+            dependencies: ["Fotios"]
+        )
     ]
 )

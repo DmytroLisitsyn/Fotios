@@ -22,11 +22,11 @@
 
 import Foundation
 
-public protocol NetworkSuccess {
+public protocol NetworkSuccess: Sendable {
     init(networkBody: Data) throws
 }
 
-public protocol NetworkFailure: Swift.Error {
+public protocol NetworkFailure: Swift.Error, Sendable {
     init(networkBody: Data, statusCode: Int) throws
 }
 

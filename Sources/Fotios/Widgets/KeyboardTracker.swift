@@ -27,6 +27,7 @@ public protocol KeyboardTrackerDelegate: AnyObject {
     func keyboardTracker(_ keyboardTracker: KeyboardTracker, keyboardWillHideFrom rect: CGRect, animationDuration: TimeInterval)
 }
 
+@MainActor
 public final class KeyboardTracker: NSObject {
 
     public weak var delegate: KeyboardTrackerDelegate?

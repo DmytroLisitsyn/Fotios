@@ -22,6 +22,7 @@
 
 import UIKit
 
+@MainActor
 public protocol SerafimImplied {
     var serafim: Serafim { get }
 }
@@ -32,6 +33,7 @@ extension SerafimImplied {
 
 // MARK: - Serafim
 
+@MainActor
 public final class Serafim {
 
     public struct Transition {
