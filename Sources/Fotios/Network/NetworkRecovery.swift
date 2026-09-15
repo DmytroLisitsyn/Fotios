@@ -29,7 +29,8 @@ public protocol NetworkRecovery {
 }
 
 public struct NetworkRecoveryContext<Request: NetworkRequest>: Identifiable {
-    public var id: String = UUID().uuidString
-    public var request: Request
-    public var shouldTryToRecover: Bool
+    public let id: String
+    public let request: Request
+    public let shouldTryToRecover: Bool
+    public let date: Date
 }

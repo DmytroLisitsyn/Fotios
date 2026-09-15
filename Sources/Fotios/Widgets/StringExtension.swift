@@ -35,10 +35,6 @@ extension String {
         }
     }
 
-}
-
-extension String {
-
     public func size(font: UIFont) -> CGSize {
         let attributes: [NSAttributedString.Key: Any] = [.font: font]
         let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]

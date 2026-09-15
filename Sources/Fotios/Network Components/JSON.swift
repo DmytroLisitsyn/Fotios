@@ -22,48 +22,16 @@
 
 import Foundation
 
-public struct JSON {
+public struct JSON: CustomStringConvertible {
 
     public var raw: Any?
-    
-    public init(_ raw: Any? = nil) {
-        if let data = raw as? Data, let jsonObject = try? JSONSerialization.jsonObject(with: data) {
-            self.raw = jsonObject
-        } else {
-            self.raw = raw
-        }
-    }
 
-    public static func fromData(_ data: Data?) -> JSON {
-        return JSON(data)
-    }
-
-    public static func fromString(_ string: String?) -> JSON {
-        return fromData(string?.data(using: .utf8))
-    }
-
-    public subscript(_ key: String) -> JSON {
-        get {
-            let json = JSON(dictionary?[key])
-            return json
-        }
-        set {
-            var modified = dictionaryValue
-            modified[key] = newValue.raw
-            raw = modified
-        }
-    }
-    
-}
-
-extension JSON {
-    
     public var number: NSNumber? {
         return raw as? NSNumber
     }
     
     public var bool: Bool? {
-        return number?.boolValue
+        return raw as? Bool
     }
     
     public var boolValue: Bool {
@@ -71,7 +39,7 @@ extension JSON {
     }
     
     public var int: Int? {
-        return number?.intValue
+        return raw as? Int
     }
     
     public var intValue: Int {
@@ -79,7 +47,7 @@ extension JSON {
     }
     
     public var float: Float? {
-        return number?.floatValue
+        return raw as? Float
     }
     
     public var floatValue: Float {
@@ -87,7 +55,7 @@ extension JSON {
     }
     
     public var double: Double? {
-        return number?.doubleValue
+        return raw as? Double
     }
     
     public var doubleValue: Double {
@@ -103,7 +71,11 @@ extension JSON {
     }
     
     public var url: URL? {
-        return URL(string: stringValue)
+        if let string = string {
+            return URL(string: string)
+        } else {
+            return nil
+        }
     }
     
     public var dictionary: [String: Any]? {
@@ -150,10 +122,6 @@ extension JSON {
         }
     }
 
-}
-
-extension JSON: CustomStringConvertible {
-    
     public var description: String {
         if let jsonString = toString() {
             return jsonString
@@ -163,5 +131,33 @@ extension JSON: CustomStringConvertible {
             return "\(raw as Any)"
         }
     }
-    
+
+    public init(_ raw: Any? = nil) {
+        if let data = raw as? Data, let jsonObject = try? JSONSerialization.jsonObject(with: data) {
+            self.raw = jsonObject
+        } else {
+            self.raw = raw
+        }
+    }
+
+    public subscript(_ key: String) -> JSON {
+        get {
+            let json = JSON(dictionary?[key])
+            return json
+        }
+        set {
+            var modified = dictionaryValue
+            modified[key] = newValue.raw
+            raw = modified
+        }
+    }
+
+    public static func fromData(_ data: Data?) -> JSON {
+        return JSON(data)
+    }
+
+    public static func fromString(_ string: String?, encoding: String.Encoding = .utf8) -> JSON {
+        return JSON(string?.data(using: encoding))
+    }
+
 }

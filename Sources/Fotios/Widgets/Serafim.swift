@@ -22,16 +22,7 @@
 
 import UIKit
 
-public protocol SerafimImplied {
-    var serafim: Serafim { get }
-}
-
-extension SerafimImplied {
-    public var serafim: Serafim { Serafim.shared }
-}
-
-// MARK: - Serafim
-
+@MainActor
 public final class Serafim {
 
     public struct Transition {
@@ -214,10 +205,6 @@ public final class Serafim {
         let controller = fetchOccurrenceInHierarchy(of: root, name: name, type: type) as? T
         return controller
     }
-
-}
-
-extension Serafim {
 
     private func fetchYoungestInHierarchy(of viewController: UIViewController) -> UIViewController {
         if let presentedViewController = viewController.presentedViewController {

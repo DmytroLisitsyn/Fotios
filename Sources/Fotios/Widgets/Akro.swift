@@ -22,6 +22,7 @@
 
 import UIKit
 
+@MainActor
 public struct Akro {
     
     private let rootView: UIView
@@ -56,11 +57,9 @@ public struct Akro {
             return relation
         }
     }
-    
-}
 
-extension Akro {
-    
+    // MARK: Attributes
+
     public var all: Akro {
         return top.bottom.leading.trailing
     }
@@ -124,7 +123,9 @@ extension Akro {
         akro.layoutAttributes.append(.lastBaseline)
         return akro
     }
-    
+
+    // MARK: Actions
+
     public func setup(_ setup: (_ akro: Akro) -> Void) {
         setup(self)
     }

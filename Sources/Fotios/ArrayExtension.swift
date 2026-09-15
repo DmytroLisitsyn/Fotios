@@ -25,19 +25,12 @@ import Foundation
 extension Array {
 
     public func index(offset: Int) -> Int {
-        let index = (offset % count + count) % count
-        return index
+        return (offset % count + count) % count
     }
 
     public subscript(offset offset: Int) -> Element {
-        get {
-            let index = (offset % count + count) % count
-            return self[index]
-        }
-        set(newValue) {
-            let index = (offset % count + count) % count
-            self[index] = newValue
-        }
+        get { return self[index(offset: offset)] }
+        set { self[index(offset: offset)] = newValue }
     }
 
     public mutating func prefetch(expectedCount: Int, makeElement: (_ index: Int) -> Element, deleteElement: (Element) -> Void = { _ in }) {
@@ -58,11 +51,18 @@ extension Array {
         }
     }
 
-    public func element(at index: Int?) -> Element? {
-        if let index = index, (0..<count).contains(index) {
-            return self[index]
-        } else {
-            return nil
+    public subscript(safe index: Int?) -> Element? {
+        get {
+            if let index, (0..<count).contains(index) {
+                return self[index]
+            } else {
+                return nil
+            }
+        }
+        set(newValue) {
+            if let newValue, let index, (0..<count).contains(index) {
+                self[index] = newValue
+            }
         }
     }
 

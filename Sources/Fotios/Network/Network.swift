@@ -36,26 +36,26 @@ public final class Network {
     
     @discardableResult
     public func send<T: NetworkRequest>(_ request: T, shouldTryToRecover: Bool = true) async throws -> T.NetworkSuccess {
-        let recoveryContext = NetworkRecoveryContext(request: request, shouldTryToRecover: shouldTryToRecover)
+        guard let recoverer else {
+            let success = try await session.send(request, in: context)
+            return success
+        }
+
+        let recoveryContext = NetworkRecoveryContext(
+            id: UUID().uuidString,
+            request: request,
+            shouldTryToRecover: shouldTryToRecover,
+            date: Date()
+        )
 
         do {
-            try await recoverer?.network(self, willSendRequestIn: recoveryContext)
-
+            try await recoverer.network(self, willSendRequestIn: recoveryContext)
             let success = try await session.send(request, in: context)
-            try await recoverer?.network(self, didSendRequestWithSuccess: success, in: recoveryContext)
-
+            try await recoverer.network(self, didSendRequestWithSuccess: success, in: recoveryContext)
             return success
         } catch {
-            guard let recoverer = self.recoverer else {
-                throw error
-            }
-            
-            do {
-                let success = try await recoverer.network(self, didSendRequestWithFailure: error, in: recoveryContext)
-                return success
-            } catch {
-                throw error
-            }
+            let success = try await recoverer.network(self, didSendRequestWithFailure: error, in: recoveryContext)
+            return success
         }
     }
     

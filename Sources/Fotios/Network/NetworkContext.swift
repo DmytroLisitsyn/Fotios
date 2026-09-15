@@ -23,11 +23,8 @@
 import Foundation
 
 public protocol NetworkContext {
-    
     var url: URL { get }
- 
     func headerFields(networkBody: Data?) -> [String: String]
-    
 }
 
 extension NetworkContext {

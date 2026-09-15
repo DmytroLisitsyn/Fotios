@@ -22,6 +22,7 @@
 
 import Foundation
 
+@MainActor
 public protocol TransitionIdentifiable {
     associatedtype TransitionIdentifier
 
@@ -32,6 +33,14 @@ extension TransitionIdentifiable {
 
     public func performTransition(_ identifier: TransitionIdentifier, animated: Bool = true) {
         performTransition(identifier, animated: animated, completionHandler: nil)
+    }
+
+    public func performTransition(_ identifier: TransitionIdentifier, animated: Bool = true) async {
+        await withUnsafeContinuation({ continuation in
+            performTransition(identifier, animated: animated, completionHandler: {
+                continuation.resume()
+            })
+        })
     }
 
 }
