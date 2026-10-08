@@ -37,7 +37,7 @@ extension String {
 
     public func size(font: UIFont) -> CGSize {
         let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin]
 
         let estimatedSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
         let rect = NSString(string: self).boundingRect(with: estimatedSize, options: options, attributes: attributes, context: nil)
@@ -50,7 +50,7 @@ extension String {
         let size = CGSize(width: width, height: .greatestFiniteMagnitude)
 
         let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin]
 
         let rect = NSString(string: self).boundingRect(with: size, options: options, attributes: attributes, context: nil)
         return ceil(rect.height)
@@ -60,7 +60,7 @@ extension String {
         let size = CGSize(width: .greatestFiniteMagnitude, height: height)
 
         let attributes: [NSAttributedString.Key: Any] = [.font: font]
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin]
 
         let rect = NSString(string: self).boundingRect(with: size, options: options, attributes: attributes, context: nil)
         return ceil(rect.width)
@@ -73,7 +73,7 @@ extension NSAttributedString {
     public func height(width: CGFloat = .infinity) -> CGFloat {
         let size = CGSize(width: width, height: .greatestFiniteMagnitude)
 
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin]
 
         let rect = boundingRect(with: size, options: options, context: nil)
         return ceil(rect.height)
@@ -82,7 +82,7 @@ extension NSAttributedString {
     public func width(height: CGFloat = .infinity) -> CGFloat {
         let size = CGSize(width: .greatestFiniteMagnitude, height: height)
 
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin]
 
         let rect = boundingRect(with: size, options: options, context: nil)
         return ceil(rect.width)
